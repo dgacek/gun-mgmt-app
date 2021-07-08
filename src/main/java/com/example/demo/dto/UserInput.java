@@ -3,11 +3,13 @@ package com.example.demo.dto;
 import com.example.demo.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
 public class UserInput {
