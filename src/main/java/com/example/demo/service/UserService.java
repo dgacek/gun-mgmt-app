@@ -8,6 +8,7 @@ import com.example.demo.repo.RoleRepo;
 import com.example.demo.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,14 @@ public class UserService {
         return new User(userEntity);
     }
 
-    public void findUserById(Long id) {
+    public User findUserById(Long id) {
+        var userEntity = userRepo.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("User of id:"+id+" could not be found in the database"));
+        return new User(userEntity);
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
         userRepo.deleteById(id);
     }
 }
