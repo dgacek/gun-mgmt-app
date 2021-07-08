@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -27,4 +25,12 @@ public class UserEntity {
     private Long phone;
     private String username;
     private String password;
+
+    public UserEntity(RoleEntity roleEntity, String email, Long phone, String username, String password) {
+        this.roleEntity = roleEntity;
+        this.email = email;
+        this.phone = phone;
+        this.username = username;
+        this.password = password;
+    }
 }

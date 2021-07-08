@@ -2,12 +2,14 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.UserEntity;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
 
 @AllArgsConstructor
 @Setter
+@Getter
 public class UserInput {
     private Long id;
     private Long roleId;
