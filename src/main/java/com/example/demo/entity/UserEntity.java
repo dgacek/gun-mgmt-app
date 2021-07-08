@@ -21,7 +21,7 @@ public class UserEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
-    private Role role;
+    private RoleEntity roleEntity;
 
     private String email;
     private Long phone;

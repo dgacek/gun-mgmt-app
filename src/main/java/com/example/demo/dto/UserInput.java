@@ -18,7 +18,7 @@ public class UserInput {
 
     public UserInput(UserEntity userEntity) {
         this.id = userEntity.getId();
-        this.roleId = userEntity.getRole().getId();
+        this.roleId = userEntity.getRoleEntity().getId();
         this.email = userEntity.getEmail();
         this.phone = userEntity.getPhone();
         this.username = userEntity.getUsername();
@@ -35,7 +35,7 @@ public class UserInput {
         }
         UserInput user = (UserInput) o;
         return this.id.equals(user.id)
-                && this.roleId.equals(user.role.getId())
+                && this.roleId.equals(user.roleId)
                 && this.email.equals(user.email)
                 && this.phone.equals(user.phone)
                 && this.username.equals(user.username)

@@ -17,7 +17,7 @@ public class User {
 
     public User(UserEntity userEntity) {
         this.id = userEntity.getId();
-        this.role = new Role(userEntity.getRole().getId());
+        this.role = new Role(userEntity.getRoleEntity());
         this.email = userEntity.getEmail();
         this.phone = userEntity.getPhone();
         this.username = userEntity.getUsername();
