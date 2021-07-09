@@ -7,6 +7,7 @@ import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.repo.TypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class TypeService {
             .orElseThrow(() -> new IdNotFoundException("Type of id:"+id+" could not be found in the database")));
     }
 
+    @Transactional
     public void deleteType(Long id) {
         typeRepo.deleteById(id);
     }
