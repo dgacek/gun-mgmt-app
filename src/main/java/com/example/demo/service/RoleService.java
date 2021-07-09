@@ -7,6 +7,7 @@ import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.repo.RoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class RoleService {
     }
 
     public Role updateRole(Role role) {
-        RoleEntity roleEntity = roleRepo.findById(role.getId())
+        var roleEntity = roleRepo.findById(role.getId())
                 .orElseThrow(() -> new IdNotFoundException(("Role of id:"+role.getId()+" could not be found in the database")));
         roleEntity.setName(role.getName());
         roleRepo.save(roleEntity);
@@ -47,6 +48,7 @@ public class RoleService {
                 .orElseThrow(() -> new IdNotFoundException(("Role of id:"+id+" could not be found in the database"))));
     }
 
+    @Transactional
     public void deleteRole(Long id) {
         roleRepo.deleteById(id);
     }
