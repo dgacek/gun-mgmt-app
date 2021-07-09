@@ -28,6 +28,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation "io.springfox:springfox-boot-starter:3.0.0"
+	compileOnly 'io.springfox:springfox-swagger-ui:3.0.0'
 }
 
 test {
