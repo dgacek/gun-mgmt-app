@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -18,26 +16,4 @@ public class UserInput {
     private Long phone;
     private String username;
     private String password;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o){
-            return true;
-        }
-        if (o == null || this.getClass() != o.getClass()) {
-            return false;
-        }
-        UserInput user = (UserInput) o;
-        return this.id.equals(user.id)
-                && this.roleId.equals(user.roleId)
-                && this.email.equals(user.email)
-                && this.phone.equals(user.phone)
-                && this.username.equals(user.username)
-                && this.password.equals(user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, phone, username);
-    }
 }
