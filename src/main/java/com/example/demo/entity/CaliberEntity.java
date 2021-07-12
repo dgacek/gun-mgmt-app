@@ -7,17 +7,11 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "calibers")
+@DiscriminatorValue("caliber")
 @Getter
 @Setter
 @NoArgsConstructor
-public class CaliberEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id;
-    private String name;
-
+public class CaliberEntity extends DictionaryEntity {
     public CaliberEntity(String name) {
         this.name = name;
     }

@@ -7,17 +7,11 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "types")
+@DiscriminatorValue("type")
 @Getter
 @Setter
 @NoArgsConstructor
-public class TypeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id;
-    private String name;
-
+public class TypeEntity extends DictionaryEntity {
     public TypeEntity(String name) {
         this.name = name;
     }
