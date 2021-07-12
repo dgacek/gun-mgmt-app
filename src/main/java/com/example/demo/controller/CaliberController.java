@@ -43,8 +43,7 @@ public class CaliberController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteCaliber(@PathVariable Long id) {
+    public void deleteCaliber(@PathVariable Long id) {
         caliberServiceImpl.deleteCaliber(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

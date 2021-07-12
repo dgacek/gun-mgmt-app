@@ -43,8 +43,7 @@ public class ManufacturerController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteManufacturer(@PathVariable Long id) {
+    public void deleteManufacturer(@PathVariable Long id) {
         manufacturerServiceImpl.deleteManufacturer(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

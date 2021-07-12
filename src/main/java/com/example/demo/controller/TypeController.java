@@ -43,8 +43,7 @@ public class TypeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteType(@PathVariable Long id) {
+    public void deleteType(@PathVariable Long id) {
         typeServiceImpl.deleteType(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

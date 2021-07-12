@@ -43,8 +43,7 @@ public class ModelController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteModel(@PathVariable Long id) {
+    public void deleteModel(@PathVariable Long id) {
         modelServiceImpl.deleteModel(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
