@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.CaliberEntity;
+import com.example.demo.entity.CaliberDictionary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +16,9 @@ public class Caliber {
     private Long id;
     private String name;
 
-    public Caliber(CaliberEntity caliberEntity) {
-        this.id = caliberEntity.getId();
-        this.name = caliberEntity.getName();
+    public Caliber(CaliberDictionary caliberDictionary) {
+        this.id = caliberDictionary.getId();
+        this.name = caliberDictionary.getName();
     }
 
     @Override

@@ -46,7 +46,7 @@ public class ModelService {
                 .orElseThrow(() -> new IdNotFoundException("Model of id:"+model.getId()+" could not be found in the database"));
         var manufacturerEntity = manufacturerRepo.findById(model.getManufacturer().getId())
                 .orElseThrow(() -> new IdNotFoundException("Manufacturer of id:"+model.getManufacturer().getId()+" could not be found in the database"));
-        modelEntity.setManufacturerEntity(manufacturerEntity);
+        modelEntity.setManufacturerDictionary(manufacturerEntity);
         modelEntity.setName(model.getName());
         return new Model(modelEntity);
     }

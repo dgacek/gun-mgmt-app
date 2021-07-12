@@ -15,7 +15,7 @@ public class Model {
 
     public Model(ModelEntity modelEntity) {
         this.id = modelEntity.getId();
-        this.manufacturer = new Manufacturer(modelEntity.getManufacturerEntity());
+        this.manufacturer = new Manufacturer(modelEntity.getManufacturerDictionary());
         this.name = modelEntity.getName();
     }
 

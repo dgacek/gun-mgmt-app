@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.CaliberEntity;
+import com.example.demo.entity.CaliberDictionary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +15,8 @@ import java.util.Objects;
 public class CaliberInput {
     private String name;
 
-    public CaliberInput(CaliberEntity caliberEntity) {
-        this.name = caliberEntity.getName();
+    public CaliberInput(CaliberDictionary caliberDictionary) {
+        this.name = caliberDictionary.getName();
     }
 
     @Override

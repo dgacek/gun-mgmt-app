@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CaliberEntity extends DictionaryEntity {
-    public CaliberEntity(String name) {
+public class CaliberDictionary extends DictionaryEntity {
+    public CaliberDictionary(String name) {
         this.name = name;
     }
 }

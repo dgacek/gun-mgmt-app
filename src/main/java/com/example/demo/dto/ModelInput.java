@@ -17,7 +17,7 @@ public class ModelInput {
     private String name;
 
     public ModelInput(ModelEntity modelEntity) {
-        this.manufacturerId = modelEntity.getManufacturerEntity().getId();
+        this.manufacturerId = modelEntity.getManufacturerDictionary().getId();
         this.name = modelEntity.getName();
     }
 

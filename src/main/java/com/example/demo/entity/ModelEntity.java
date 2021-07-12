@@ -19,12 +19,12 @@ public class ModelEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturer_id")
-    private ManufacturerEntity manufacturerEntity;
+    private ManufacturerDictionary manufacturerDictionary;
 
     private String name;
 
-    public ModelEntity(ManufacturerEntity manufacturerEntity, String name) {
-        this.manufacturerEntity = manufacturerEntity;
+    public ModelEntity(ManufacturerDictionary manufacturerDictionary, String name) {
+        this.manufacturerDictionary = manufacturerDictionary;
         this.name = name;
     }
 }

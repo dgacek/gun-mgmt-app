@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.ManufacturerEntity;
+import com.example.demo.entity.ManufacturerDictionary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +16,9 @@ public class Manufacturer {
     private Long id;
     private String name;
 
-    public Manufacturer(ManufacturerEntity manufacturerEntity) {
-        this.id = manufacturerEntity.getId();
-        this.name = manufacturerEntity.getName();
+    public Manufacturer(ManufacturerDictionary manufacturerDictionary) {
+        this.id = manufacturerDictionary.getId();
+        this.name = manufacturerDictionary.getName();
     }
 
     @Override

@@ -7,12 +7,12 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("manufacturer")
+@DiscriminatorValue("type")
 @Getter
 @Setter
 @NoArgsConstructor
-public class ManufacturerEntity extends DictionaryEntity {
-    public ManufacturerEntity(String name) {
+public class TypeDictionary extends DictionaryEntity {
+    public TypeDictionary(String name) {
         this.name = name;
     }
 }

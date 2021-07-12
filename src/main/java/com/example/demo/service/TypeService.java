@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.Type;
 import com.example.demo.dto.TypeInput;
-import com.example.demo.entity.TypeEntity;
+import com.example.demo.entity.TypeDictionary;
 import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.repo.TypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +22,15 @@ public class TypeService {
     }
 
     public Type addType(TypeInput typeInput) {
-        var typeEntity = typeRepo.save(new TypeEntity(typeInput.getName()));
+        var typeEntity = typeRepo.save(new TypeDictionary(typeInput.getName()));
         return new Type(typeEntity);
     }
 
     public List<Type> findAllTypes() {
         var typeEntities = typeRepo.findAll();
         var types = new ArrayList<Type>();
-        for (TypeEntity typeEntity : typeEntities) {
-            types.add(new Type(typeEntity));
+        for (TypeDictionary typeDictionary : typeEntities) {
+            types.add(new Type(typeDictionary));
         }
         return types;
     }

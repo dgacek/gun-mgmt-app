@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.TypeEntity;
+import com.example.demo.entity.TypeDictionary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +16,9 @@ public class Type {
     private Long id;
     private String name;
 
-    public Type(TypeEntity typeEntity) {
-        this.id = typeEntity.getId();
-        this.name = typeEntity.getName();
+    public Type(TypeDictionary typeDictionary) {
+        this.id = typeDictionary.getId();
+        this.name = typeDictionary.getName();
     }
 
     @Override
