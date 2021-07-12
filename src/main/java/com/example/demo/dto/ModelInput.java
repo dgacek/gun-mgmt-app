@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.ModelEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +14,6 @@ import java.util.Objects;
 public class ModelInput {
     private Long manufacturerId;
     private String name;
-
-    public ModelInput(ModelEntity modelEntity) {
-        this.manufacturerId = modelEntity.getManufacturerDictionary().getId();
-        this.name = modelEntity.getName();
-    }
 
     @Override
     public boolean equals(Object o) {

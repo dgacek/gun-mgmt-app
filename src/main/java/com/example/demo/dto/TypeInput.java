@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.TypeDictionary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +13,6 @@ import java.util.Objects;
 @Setter
 public class TypeInput {
     private String name;
-
-    public TypeInput(TypeDictionary typeDictionary) {
-        this.name = typeDictionary.getName();
-    }
 
     @Override
     public boolean equals(Object o) {

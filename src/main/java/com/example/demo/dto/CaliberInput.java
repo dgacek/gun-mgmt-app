@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.CaliberDictionary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +13,6 @@ import java.util.Objects;
 @Setter
 public class CaliberInput {
     private String name;
-
-    public CaliberInput(CaliberDictionary caliberDictionary) {
-        this.name = caliberDictionary.getName();
-    }
 
     @Override
     public boolean equals(Object o) {
