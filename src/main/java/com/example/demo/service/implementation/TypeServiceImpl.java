@@ -1,10 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.service.implementation;
 
 import com.example.demo.dto.Type;
 import com.example.demo.dto.TypeInput;
 import com.example.demo.entity.TypeDictionary;
 import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.repo.TypeRepo;
+import com.example.demo.service.TypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

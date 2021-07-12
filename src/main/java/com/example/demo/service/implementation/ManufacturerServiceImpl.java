@@ -1,10 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.service.implementation;
 
 import com.example.demo.dto.Manufacturer;
 import com.example.demo.dto.ManufacturerInput;
 import com.example.demo.entity.ManufacturerDictionary;
 import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.repo.ManufacturerRepo;
+import com.example.demo.service.ManufacturerService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

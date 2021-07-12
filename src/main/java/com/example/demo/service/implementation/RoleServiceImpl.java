@@ -1,10 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.service.implementation;
 
 import com.example.demo.dto.Role;
 import com.example.demo.dto.RoleInput;
 import com.example.demo.entity.RoleEntity;
 import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.repo.RoleRepo;
+import com.example.demo.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

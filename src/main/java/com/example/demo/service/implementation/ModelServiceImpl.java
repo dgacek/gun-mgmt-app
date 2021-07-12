@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.implementation;
 
 import com.example.demo.dto.Model;
 import com.example.demo.dto.ModelInput;
@@ -6,6 +6,7 @@ import com.example.demo.entity.ModelEntity;
 import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.repo.ManufacturerRepo;
 import com.example.demo.repo.ModelRepo;
+import com.example.demo.service.ModelService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

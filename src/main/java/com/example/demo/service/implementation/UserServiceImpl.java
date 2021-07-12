@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.implementation;
 
 import com.example.demo.dto.User;
 import com.example.demo.dto.UserInput;
@@ -6,6 +6,7 @@ import com.example.demo.entity.UserEntity;
 import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.repo.RoleRepo;
 import com.example.demo.repo.UserRepo;
+import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
