@@ -19,8 +19,4 @@ public class DictionaryEntity {
     @Column(nullable = false, updatable = false)
     protected Long id;
     protected String name;
-
-    public DictionaryEntity(String name) {
-        this.name = name;
-    }
 }
