@@ -2,48 +2,42 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.User;
 import com.example.demo.dto.UserInput;
-import com.example.demo.service.UserServiceImpl;
+import com.example.demo.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final UserServiceImpl userServiceImpl;
-
-    public UserController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
-    }
+    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
-        var users = userServiceImpl.findAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        var user = userServiceImpl.findUserById(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody UserInput userInput) {
-        var user = userServiceImpl.addUser(userInput);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.addUser(userInput), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody UserInput userInput) {
-        var user = userServiceImpl.updateUser(userInput);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(userService.updateUser(userInput), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable Long id) {
-        userServiceImpl.deleteUser(id);
+        userService.deleteUser(id);
     }
 }

@@ -2,48 +2,42 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.Model;
 import com.example.demo.dto.ModelInput;
-import com.example.demo.service.ModelServiceImpl;
+import com.example.demo.service.ModelService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/models")
 public class ModelController {
-    private final ModelServiceImpl modelServiceImpl;
-
-    public ModelController(ModelServiceImpl modelServiceImpl) {
-        this.modelServiceImpl = modelServiceImpl;
-    }
+    private final ModelService modelService;
 
     @GetMapping
     public ResponseEntity<List<Model>> getAllModels() {
-        var models = modelServiceImpl.findAllModels();
-        return new ResponseEntity<>(models, HttpStatus.OK);
+        return new ResponseEntity<>(modelService.findAllModels(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Model> getModelById(@PathVariable Long id) {
-        var model = modelServiceImpl.findModelById(id);
-        return new ResponseEntity<>(model, HttpStatus.OK);
+        return new ResponseEntity<>(modelService.findModelById(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<Model> addModel(@RequestBody ModelInput modelInput) {
-        var model = modelServiceImpl.addModel(modelInput);
-        return new ResponseEntity<>(model, HttpStatus.CREATED);
+        return new ResponseEntity<>(modelService.addModel(modelInput), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Model> updateModel(@RequestBody Model model) {
-        var model1 = modelServiceImpl.updateModel(model);
-        return new ResponseEntity<>(model1, HttpStatus.OK);
+        return new ResponseEntity<>(modelService.updateModel(model), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteModel(@PathVariable Long id) {
-        modelServiceImpl.deleteModel(id);
+        modelService.deleteModel(id);
     }
 }
