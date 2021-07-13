@@ -1,52 +1,47 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.dto.Type;
-import com.example.demo.dto.TypeInput;
+import com.example.demo.dto.DictionaryData;
+import com.example.demo.dto.DictionaryDataInput;
+import com.example.demo.entity.DictionaryEntity;
 import com.example.demo.entity.TypeDictionary;
 import com.example.demo.exception.IdNotFoundException;
-import com.example.demo.repo.TypeRepo;
+import com.example.demo.mapper.DictionaryDataMapper;
+import com.example.demo.repo.DictionaryRepo;
 import com.example.demo.service.TypeService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class TypeServiceImpl implements TypeService {
-    private final TypeRepo typeRepo;
+    private final DictionaryRepo dictionaryRepo;
+    private final DictionaryDataMapper dictionaryDataMapper;
 
-    public TypeServiceImpl(TypeRepo typeRepo) {
-        this.typeRepo = typeRepo;
+    public DictionaryData addType(DictionaryDataInput dictionaryDataInput) {
+        return dictionaryDataMapper.entityToDTO(dictionaryRepo.save(new TypeDictionary(dictionaryDataInput.getName())));
     }
 
-    public Type addType(TypeInput typeInput) {
-        var typeEntity = typeRepo.save(new TypeDictionary(typeInput.getName()));
-        return new Type(typeEntity);
+    public List<DictionaryData> findAllTypes() {
+        return dictionaryRepo.findAllByType(TypeDictionary.class);
     }
 
-    public List<Type> findAllTypes() {
-        var typeEntities = typeRepo.findAll();
-        var types = new ArrayList<Type>();
-        for (TypeDictionary typeDictionary : typeEntities) {
-            types.add(new Type(typeDictionary));
-        }
-        return types;
+    @Transactional
+    public DictionaryData updateType(DictionaryData dictionaryData) {
+        DictionaryEntity typeDictionary = dictionaryRepo.findById(dictionaryData.getId())
+                .orElseThrow(() -> new IdNotFoundException("Type of id:"+ dictionaryData.getId()+" could not be found in the database"));
+        typeDictionary.setName(dictionaryData.getName());
+        return dictionaryDataMapper.entityToDTO(typeDictionary);
     }
 
-    public Type updateType(Type type) {
-        var typeEntity = typeRepo.findById(type.getId())
-                .orElseThrow(() -> new IdNotFoundException("Type of id:"+type.getId()+" could not be found in the database"));
-        typeEntity.setName(type.getName());
-        typeRepo.save(typeEntity);
-        return new Type(typeEntity);
-    }
-
-    public Type findTypeById(Long id) {
-        return new Type(typeRepo.findById(id)
-            .orElseThrow(() -> new IdNotFoundException("Type of id:"+id+" could not be found in the database")));
+    public DictionaryData findTypeById(Long id) {
+        return dictionaryDataMapper.entityToDTO(dictionaryRepo.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("Type of id:" + id + " could not be found in the database")));
     }
 
     public void deleteType(Long id) {
-        typeRepo.deleteById(id);
+        dictionaryRepo.deleteById(id);
     }
 }

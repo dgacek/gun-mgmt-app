@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.Manufacturer;
-import com.example.demo.dto.ManufacturerInput;
+import com.example.demo.dto.DictionaryData;
+import com.example.demo.dto.DictionaryDataInput;
 import com.example.demo.service.ManufacturerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,23 +17,23 @@ public class ManufacturerController {
     private final ManufacturerService manufacturerService;
 
     @GetMapping
-    public ResponseEntity<List<Manufacturer>> getAllManufacturers() {
+    public ResponseEntity<List<DictionaryData>> getAllManufacturers() {
         return new ResponseEntity<>(manufacturerService.findAllManufacturers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable Long id) {
+    public ResponseEntity<DictionaryData> getManufacturerById(@PathVariable Long id) {
         return new ResponseEntity<>(manufacturerService.findManufacturerById(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Manufacturer> addManufacturer(@RequestBody ManufacturerInput manufacturerInput) {
-        return new ResponseEntity<>(manufacturerService.addManufacturer(manufacturerInput), HttpStatus.CREATED);
+    public ResponseEntity<DictionaryData> addManufacturer(@RequestBody DictionaryDataInput dictionaryDataInput) {
+        return new ResponseEntity<>(manufacturerService.addManufacturer(dictionaryDataInput), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Manufacturer> updateManufacturer(@RequestBody Manufacturer manufacturer) {
-        return new ResponseEntity<>(manufacturerService.updateManufacturer(manufacturer), HttpStatus.OK);
+    public ResponseEntity<DictionaryData> updateManufacturer(@RequestBody DictionaryData dictionaryData) {
+        return new ResponseEntity<>(manufacturerService.updateManufacturer(dictionaryData), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -1,14 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.Caliber;
-import com.example.demo.dto.CaliberInput;
+import com.example.demo.dto.DictionaryData;
+import com.example.demo.dto.DictionaryDataInput;
 
 import java.util.List;
 
 public interface CaliberService {
-    Caliber addCaliber(CaliberInput caliberInput);
-    List<Caliber> findAllCalibers();
-    Caliber updateCaliber(Caliber caliber);
-    Caliber findCaliberById(Long id);
+    DictionaryData addCaliber(DictionaryDataInput dictionaryDataInput);
+    List<DictionaryData> findAllCalibers();
+    DictionaryData updateCaliber(DictionaryData dictionaryData);
+    DictionaryData findCaliberById(Long id);
     void deleteCaliber(Long id);
 }

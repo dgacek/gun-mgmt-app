@@ -1,52 +1,47 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.dto.Caliber;
-import com.example.demo.dto.CaliberInput;
+import com.example.demo.dto.DictionaryData;
+import com.example.demo.dto.DictionaryDataInput;
 import com.example.demo.entity.CaliberDictionary;
+import com.example.demo.entity.DictionaryEntity;
 import com.example.demo.exception.IdNotFoundException;
-import com.example.demo.repo.CaliberRepo;
+import com.example.demo.mapper.DictionaryDataMapper;
+import com.example.demo.repo.DictionaryRepo;
 import com.example.demo.service.CaliberService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CaliberServiceImpl implements CaliberService {
-    private final CaliberRepo caliberRepo;
+    private final DictionaryRepo dictionaryRepo;
+    private final DictionaryDataMapper dictionaryDataMapper;
 
-    public CaliberServiceImpl(CaliberRepo caliberRepo) {
-        this.caliberRepo = caliberRepo;
+    public DictionaryData addCaliber(DictionaryDataInput dictionaryDataInput) {
+        return dictionaryDataMapper.entityToDTO(dictionaryRepo.save(new CaliberDictionary(dictionaryDataInput.getName())));
     }
 
-    public Caliber addCaliber(CaliberInput caliberInput) {
-        var caliberEntity = caliberRepo.save(new CaliberDictionary(caliberInput.getName()));
-        return new Caliber(caliberEntity);
+    public List<DictionaryData> findAllCalibers() {
+        return dictionaryRepo.findAllByType(CaliberDictionary.class);
     }
 
-    public List<Caliber> findAllCalibers() {
-        var caliberEntities = caliberRepo.findAll();
-        var calibers = new ArrayList<Caliber>();
-        for (CaliberDictionary caliberDictionary : caliberEntities) {
-            calibers.add(new Caliber(caliberDictionary));
-        }
-        return calibers;
+    @Transactional
+    public DictionaryData updateCaliber(DictionaryData dictionaryData) {
+        DictionaryEntity caliberDictionary = dictionaryRepo.findById(dictionaryData.getId())
+                .orElseThrow(() -> new IdNotFoundException("Caliber of id:"+dictionaryData.getId()+" could not be found in the database"));
+        caliberDictionary.setName(dictionaryData.getName());
+        return dictionaryDataMapper.entityToDTO(caliberDictionary);
     }
 
-    public Caliber updateCaliber(Caliber caliber) {
-        CaliberDictionary caliberDictionary = caliberRepo.findById(caliber.getId())
-                .orElseThrow(() -> new IdNotFoundException("Caliber of id:"+caliber.getId()+" could not be found in the database"));
-        caliberDictionary.setName(caliber.getName());
-        caliberRepo.save(caliberDictionary);
-        return new Caliber(caliberDictionary);
-    }
-
-    public Caliber findCaliberById(Long id) {
-        return new Caliber(caliberRepo.findById(id)
+    public DictionaryData findCaliberById(Long id) {
+        return dictionaryDataMapper.entityToDTO(dictionaryRepo.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("Caliber of id:"+id+" could not be found in the database")));
     }
 
     public void deleteCaliber(Long id) {
-        caliberRepo.deleteById(id);
+        dictionaryRepo.deleteById(id);
     }
 }

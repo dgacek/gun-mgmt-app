@@ -1,14 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.Type;
-import com.example.demo.dto.TypeInput;
+import com.example.demo.dto.DictionaryData;
+import com.example.demo.dto.DictionaryDataInput;
 
 import java.util.List;
 
 public interface TypeService {
-    Type addType(TypeInput typeInput);
-    List<Type> findAllTypes();
-    Type updateType(Type type);
-    Type findTypeById(Long id);
+    DictionaryData addType(DictionaryDataInput dictionaryDataInput);
+    List<DictionaryData> findAllTypes();
+    DictionaryData updateType(DictionaryData dictionaryData);
+    DictionaryData findTypeById(Long id);
     void deleteType(Long id);
 }
