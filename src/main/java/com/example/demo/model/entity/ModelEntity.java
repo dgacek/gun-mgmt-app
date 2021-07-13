@@ -1,5 +1,6 @@
-package com.example.demo.entity;
+package com.example.demo.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,20 +12,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ModelEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "model_seq_gen")
+    @SequenceGenerator(name = "model_seq_gen", sequenceName = "model_id_seq", allocationSize = 1)
     @Column(nullable = false, updatable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturer_id")
-    private ManufacturerEntity manufacturerEntity;
+    private ManufacturerDictionary manufacturerDictionary;
 
     private String name;
 
-    public ModelEntity(ManufacturerEntity manufacturerEntity, String name) {
-        this.manufacturerEntity = manufacturerEntity;
-        this.name = name;
-    }
 }

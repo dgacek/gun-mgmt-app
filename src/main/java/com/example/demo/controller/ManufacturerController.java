@@ -1,50 +1,43 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.Manufacturer;
-import com.example.demo.dto.ManufacturerInput;
+import com.example.demo.model.dto.DictionaryData;
+import com.example.demo.model.dto.DictionaryDataInput;
 import com.example.demo.service.ManufacturerService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/manufacturers")
 public class ManufacturerController {
     private final ManufacturerService manufacturerService;
 
-    public ManufacturerController(ManufacturerService manufacturerService) {
-        this.manufacturerService = manufacturerService;
-    }
-
     @GetMapping
-    public ResponseEntity<List<Manufacturer>> getAllManufacturers() {
-        var manufacturers = manufacturerService.findAllManufacturers();
-        return new ResponseEntity<>(manufacturers, HttpStatus.OK);
+    public ResponseEntity<List<DictionaryData>> getAllManufacturers() {
+        return new ResponseEntity<>(manufacturerService.findAllManufacturers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable Long id) {
-        var manufacturer = manufacturerService.findManufacturerById(id);
-        return new ResponseEntity<>(manufacturer, HttpStatus.OK);
+    public ResponseEntity<DictionaryData> getManufacturerById(@PathVariable Long id) {
+        return new ResponseEntity<>(manufacturerService.findManufacturerById(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Manufacturer> addManufacturer(@RequestBody ManufacturerInput manufacturerInput) {
-        var manufacturer = manufacturerService.addManufacturer(manufacturerInput);
-        return new ResponseEntity<>(manufacturer, HttpStatus.CREATED);
+    public ResponseEntity<DictionaryData> addManufacturer(@RequestBody DictionaryDataInput dictionaryDataInput) {
+        return new ResponseEntity<>(manufacturerService.addManufacturer(dictionaryDataInput), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Manufacturer> updateManufacturer(@RequestBody Manufacturer manufacturer) {
-        var manufacturer1 = manufacturerService.updateManufacturer(manufacturer);
-        return new ResponseEntity<>(manufacturer1, HttpStatus.OK);
+    public ResponseEntity<DictionaryData> updateManufacturer(@RequestBody DictionaryData dictionaryData) {
+        return new ResponseEntity<>(manufacturerService.updateManufacturer(dictionaryData), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteManufacturer(@PathVariable Long id) {
+    public void deleteManufacturer(@PathVariable Long id) {
         manufacturerService.deleteManufacturer(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
