@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.DictionaryData;
-import com.example.demo.dto.DictionaryDataInput;
+import com.example.demo.model.dto.DictionaryData;
+import com.example.demo.model.dto.DictionaryDataInput;
 import com.example.demo.service.CaliberService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

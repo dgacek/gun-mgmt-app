@@ -1,13 +1,13 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.dto.User;
-import com.example.demo.dto.UserInput;
-import com.example.demo.entity.RoleEntity;
-import com.example.demo.entity.UserEntity;
+import com.example.demo.model.dto.User;
+import com.example.demo.model.dto.UserInput;
+import com.example.demo.model.entity.RoleEntity;
+import com.example.demo.model.entity.UserEntity;
 import com.example.demo.exception.IdNotFoundException;
-import com.example.demo.mapper.UserMapper;
-import com.example.demo.repo.RoleRepo;
-import com.example.demo.repo.UserRepo;
+import com.example.demo.model.mapper.UserMapper;
+import com.example.demo.model.repo.RoleRepo;
+import com.example.demo.model.repo.UserRepo;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

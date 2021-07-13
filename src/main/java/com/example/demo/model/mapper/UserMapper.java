@@ -1,7 +1,7 @@
-package com.example.demo.mapper;
+package com.example.demo.model.mapper;
 
-import com.example.demo.dto.User;
-import com.example.demo.entity.UserEntity;
+import com.example.demo.model.dto.User;
+import com.example.demo.model.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

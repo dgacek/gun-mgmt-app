@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
+public class Model {
     private Long id;
-    private Role role;
-    private String email;
-    private Long phone;
-    private String username;
+    private DictionaryData manufacturer;
+    private String name;
 }

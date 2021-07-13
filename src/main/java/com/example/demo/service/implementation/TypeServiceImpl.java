@@ -1,12 +1,12 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.dto.DictionaryData;
-import com.example.demo.dto.DictionaryDataInput;
-import com.example.demo.entity.DictionaryEntity;
-import com.example.demo.entity.TypeDictionary;
+import com.example.demo.model.dto.DictionaryData;
+import com.example.demo.model.dto.DictionaryDataInput;
+import com.example.demo.model.entity.DictionaryEntity;
+import com.example.demo.model.entity.TypeDictionary;
 import com.example.demo.exception.IdNotFoundException;
-import com.example.demo.mapper.DictionaryDataMapper;
-import com.example.demo.repo.DictionaryRepo;
+import com.example.demo.model.mapper.DictionaryDataMapper;
+import com.example.demo.model.repo.DictionaryRepo;
 import com.example.demo.service.TypeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

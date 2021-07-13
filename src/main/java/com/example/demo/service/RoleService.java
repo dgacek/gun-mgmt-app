@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.Role;
-import com.example.demo.dto.RoleInput;
+import com.example.demo.model.dto.Role;
+import com.example.demo.model.dto.RoleInput;
 
 import java.util.List;
 

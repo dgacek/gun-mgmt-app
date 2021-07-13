@@ -1,7 +1,7 @@
-package com.example.demo.mapper;
+package com.example.demo.model.mapper;
 
-import com.example.demo.dto.DictionaryData;
-import com.example.demo.entity.DictionaryEntity;
+import com.example.demo.model.dto.DictionaryData;
+import com.example.demo.model.entity.DictionaryEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,16 +1,14 @@
-package com.example.demo.dto;
+package com.example.demo.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@AllArgsConstructor
 @Setter
-public class Model {
-    private Long id;
-    private DictionaryData manufacturer;
+@Getter
+public class DictionaryDataInput {
     private String name;
 }

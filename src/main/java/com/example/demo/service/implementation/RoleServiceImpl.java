@@ -1,11 +1,11 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.dto.Role;
-import com.example.demo.dto.RoleInput;
-import com.example.demo.entity.RoleEntity;
+import com.example.demo.model.dto.Role;
+import com.example.demo.model.dto.RoleInput;
+import com.example.demo.model.entity.RoleEntity;
 import com.example.demo.exception.IdNotFoundException;
-import com.example.demo.mapper.RoleMapper;
-import com.example.demo.repo.RoleRepo;
+import com.example.demo.model.mapper.RoleMapper;
+import com.example.demo.model.repo.RoleRepo;
 import com.example.demo.service.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.DictionaryData;
-import com.example.demo.dto.DictionaryDataInput;
+import com.example.demo.model.dto.DictionaryData;
+import com.example.demo.model.dto.DictionaryDataInput;
 
 import java.util.List;
 

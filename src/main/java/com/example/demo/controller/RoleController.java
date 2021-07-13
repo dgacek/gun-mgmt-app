@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.Role;
-import com.example.demo.dto.RoleInput;
+import com.example.demo.model.dto.Role;
+import com.example.demo.model.dto.RoleInput;
 import com.example.demo.service.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

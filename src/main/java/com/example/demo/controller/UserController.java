@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.User;
-import com.example.demo.dto.UserInput;
+import com.example.demo.model.dto.User;
+import com.example.demo.model.dto.UserInput;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

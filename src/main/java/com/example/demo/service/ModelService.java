@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.Model;
-import com.example.demo.dto.ModelInput;
+import com.example.demo.model.dto.Model;
+import com.example.demo.model.dto.ModelInput;
 
 import java.util.List;
 
