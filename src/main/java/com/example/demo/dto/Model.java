@@ -1,23 +1,20 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.ModelEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class Model {
     private Long id;
-    private Manufacturer manufacturer;
+    private DictionaryData manufacturer;
     private String name;
-
-    public Model(ModelEntity modelEntity) {
-        this.id = modelEntity.getId();
-        this.manufacturer = new Manufacturer(modelEntity.getManufacturerDictionary());
-        this.name = modelEntity.getName();
-    }
 
     @Override
     public boolean equals(Object o) {

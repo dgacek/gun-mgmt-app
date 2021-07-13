@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,14 +13,6 @@ public class User {
     private String email;
     private Long phone;
     private String username;
-
-    public User(UserEntity userEntity) {
-        this.id = userEntity.getId();
-        this.role = new Role(userEntity.getRoleEntity());
-        this.email = userEntity.getEmail();
-        this.phone = userEntity.getPhone();
-        this.username = userEntity.getUsername();
-    }
 
     @Override
     public boolean equals(Object o) {

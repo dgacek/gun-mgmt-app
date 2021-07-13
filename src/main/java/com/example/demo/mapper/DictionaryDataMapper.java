@@ -6,6 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface DictionaryDataMapper {
-    DictionaryData entityToDTO(DictionaryEntity dictionaryEntity);
-    DictionaryEntity dtoToEntity(DictionaryData dictionaryData);
+    DictionaryData toDictionaryData(DictionaryEntity dictionaryEntity);
 }

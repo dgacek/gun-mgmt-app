@@ -21,7 +21,7 @@ public class CaliberServiceImpl implements CaliberService {
     private final DictionaryDataMapper dictionaryDataMapper;
 
     public DictionaryData addCaliber(DictionaryDataInput dictionaryDataInput) {
-        return dictionaryDataMapper.entityToDTO(dictionaryRepo.save(new CaliberDictionary(dictionaryDataInput.getName())));
+        return dictionaryDataMapper.toDictionaryData(dictionaryRepo.save(new CaliberDictionary(dictionaryDataInput.getName())));
     }
 
     public List<DictionaryData> findAllCalibers() {
@@ -33,11 +33,11 @@ public class CaliberServiceImpl implements CaliberService {
         DictionaryEntity caliberDictionary = dictionaryRepo.findById(dictionaryData.getId())
                 .orElseThrow(() -> new IdNotFoundException("Caliber of id:"+dictionaryData.getId()+" could not be found in the database"));
         caliberDictionary.setName(dictionaryData.getName());
-        return dictionaryDataMapper.entityToDTO(caliberDictionary);
+        return dictionaryDataMapper.toDictionaryData(caliberDictionary);
     }
 
     public DictionaryData findCaliberById(Long id) {
-        return dictionaryDataMapper.entityToDTO(dictionaryRepo.findById(id)
+        return dictionaryDataMapper.toDictionaryData(dictionaryRepo.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("Caliber of id:"+id+" could not be found in the database")));
     }
 

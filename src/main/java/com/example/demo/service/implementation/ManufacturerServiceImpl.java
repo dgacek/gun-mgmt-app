@@ -21,7 +21,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     private final DictionaryDataMapper dictionaryDataMapper;
 
     public DictionaryData addManufacturer(DictionaryDataInput dictionaryDataInput) {
-        return dictionaryDataMapper.entityToDTO(dictionaryRepo.save(new ManufacturerDictionary(dictionaryDataInput.getName())));
+        return dictionaryDataMapper.toDictionaryData(dictionaryRepo.save(new ManufacturerDictionary(dictionaryDataInput.getName())));
     }
 
     public List<DictionaryData> findAllManufacturers() {
@@ -33,11 +33,11 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         DictionaryEntity manufacturerDictionary = dictionaryRepo.findById(dictionaryData.getId())
                 .orElseThrow(() -> new IdNotFoundException("Manufacturer of id:"+ dictionaryData.getId()+" could not be found in the database"));
         manufacturerDictionary.setName(dictionaryData.getName());
-        return dictionaryDataMapper.entityToDTO(manufacturerDictionary);
+        return dictionaryDataMapper.toDictionaryData(manufacturerDictionary);
     }
 
     public DictionaryData findManufacturerById(Long id) {
-        return dictionaryDataMapper.entityToDTO(dictionaryRepo.findById(id)
+        return dictionaryDataMapper.toDictionaryData(dictionaryRepo.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("Manufacturer of id:" + id + " could not be found in the database")));
     }
 

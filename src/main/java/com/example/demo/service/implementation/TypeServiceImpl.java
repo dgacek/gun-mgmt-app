@@ -21,7 +21,7 @@ public class TypeServiceImpl implements TypeService {
     private final DictionaryDataMapper dictionaryDataMapper;
 
     public DictionaryData addType(DictionaryDataInput dictionaryDataInput) {
-        return dictionaryDataMapper.entityToDTO(dictionaryRepo.save(new TypeDictionary(dictionaryDataInput.getName())));
+        return dictionaryDataMapper.toDictionaryData(dictionaryRepo.save(new TypeDictionary(dictionaryDataInput.getName())));
     }
 
     public List<DictionaryData> findAllTypes() {
@@ -33,11 +33,11 @@ public class TypeServiceImpl implements TypeService {
         DictionaryEntity typeDictionary = dictionaryRepo.findById(dictionaryData.getId())
                 .orElseThrow(() -> new IdNotFoundException("Type of id:"+ dictionaryData.getId()+" could not be found in the database"));
         typeDictionary.setName(dictionaryData.getName());
-        return dictionaryDataMapper.entityToDTO(typeDictionary);
+        return dictionaryDataMapper.toDictionaryData(typeDictionary);
     }
 
     public DictionaryData findTypeById(Long id) {
-        return dictionaryDataMapper.entityToDTO(dictionaryRepo.findById(id)
+        return dictionaryDataMapper.toDictionaryData(dictionaryRepo.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("Type of id:" + id + " could not be found in the database")));
     }
 

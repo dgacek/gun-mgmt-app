@@ -2,57 +2,50 @@ package com.example.demo.service.implementation;
 
 import com.example.demo.dto.Model;
 import com.example.demo.dto.ModelInput;
+import com.example.demo.entity.ManufacturerDictionary;
 import com.example.demo.entity.ModelEntity;
 import com.example.demo.exception.IdNotFoundException;
-import com.example.demo.repo.ManufacturerRepo;
+import com.example.demo.mapper.ModelMapper2;
+import com.example.demo.repo.DictionaryRepo;
 import com.example.demo.repo.ModelRepo;
 import com.example.demo.service.ModelService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ModelServiceImpl implements ModelService {
     private final ModelRepo modelRepo;
-    private final ManufacturerRepo manufacturerRepo;
-
-    public ModelServiceImpl(ModelRepo modelRepo, ManufacturerRepo manufacturerRepo) {
-        this.modelRepo = modelRepo;
-        this.manufacturerRepo = manufacturerRepo;
-    }
+    private final DictionaryRepo dictionaryRepo;
+    private final ModelMapper2 modelMapper2;
 
     public Model addModel(ModelInput modelInput) {
-        var manufacturerEntity = manufacturerRepo.findById(modelInput.getManufacturerId())
+        var manufacturerDictionary = (ManufacturerDictionary) dictionaryRepo.findById(modelInput.getManufacturerId())
                 .orElseThrow(() -> new IdNotFoundException("Manufacture of id:"+modelInput.getManufacturerId()+" could not be found in the database"));
-        var modelEntity = new ModelEntity(manufacturerEntity, modelInput.getName());
-        modelRepo.save(modelEntity);
-        return new Model(modelEntity);
+        return modelMapper2.toModel(modelRepo.save(new ModelEntity(null, manufacturerDictionary, modelInput.getName())));
     }
 
     public List<Model> findAllModels() {
-        var modelEntities = modelRepo.findAll();
-        var models = new ArrayList<Model>();
-        for (ModelEntity modelEntity : modelEntities) {
-            models.add(new Model(modelEntity));
-        }
-        return models;
+        return modelMapper2.toModelList(modelRepo.findAll());
     }
 
+    @Transactional
     public Model updateModel(Model model) {
-        var modelEntity = modelRepo.findById(model.getId())
+        ModelEntity modelEntity = modelRepo.findById(model.getId())
                 .orElseThrow(() -> new IdNotFoundException("Model of id:"+model.getId()+" could not be found in the database"));
-        var manufacturerEntity = manufacturerRepo.findById(model.getManufacturer().getId())
+        ManufacturerDictionary manufacturerDictionary = (ManufacturerDictionary) dictionaryRepo.findById(model.getManufacturer().getId())
                 .orElseThrow(() -> new IdNotFoundException("Manufacturer of id:"+model.getManufacturer().getId()+" could not be found in the database"));
-        modelEntity.setManufacturerDictionary(manufacturerEntity);
+        modelEntity.setManufacturerDictionary(manufacturerDictionary);
         modelEntity.setName(model.getName());
-        return new Model(modelEntity);
+        return modelMapper2.toModel(modelEntity);
     }
 
     public Model findModelById(Long id) {
-        var modelEntity = modelRepo.findById(id)
-                .orElseThrow(() -> new IdNotFoundException("Model of id:"+id+" could not be found in the database"));
-        return new Model(modelEntity);
+        return modelMapper2.toModel(modelRepo.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("Model of id:"+id+" could not be found in the database")));
     }
 
     public void deleteModel(Long id) {
