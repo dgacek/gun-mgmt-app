@@ -15,7 +15,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class ModelEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "model_seq_gen")
+    @SequenceGenerator(name = "model_seq_gen", sequenceName = "model_id_seq", allocationSize = 1)
     @Column(nullable = false, updatable = false)
     private Long id;
 

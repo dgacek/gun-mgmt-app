@@ -15,7 +15,8 @@ import javax.persistence.*;
 @Setter
 public class DictionaryEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dictionary_seq_gen")
+    @SequenceGenerator(name = "dictionary_seq_gen", sequenceName = "dictionary_id_seq", allocationSize = 1)
     @Column(nullable = false, updatable = false)
     protected Long id;
     protected String name;
