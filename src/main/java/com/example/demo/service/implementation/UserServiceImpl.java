@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
     public User updateUser(UserInput userInput) {
         UserEntity userEntity = userRepo.findById(userInput.getId())
                 .orElseThrow(() -> new IdNotFoundException("User of id:"+userInput.getId()+" could not be found in the database"));
+        // checking if the user-provided role id is valid
         RoleEntity roleEntity = roleRepo.findById(userInput.getRoleId())
                 .orElseThrow(() -> new IdNotFoundException("Role of id:"+userInput.getRoleId()+" could not be found in the database"));
         userEntity.setRoleEntity(roleEntity);
