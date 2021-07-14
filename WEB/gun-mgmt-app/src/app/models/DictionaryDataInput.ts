@@ -1,3 +1,3 @@
 export interface DictionaryDataInput {
-    name: string;
+  name: string;
 }
