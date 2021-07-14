@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     public User addUser(UserInput userInput) {
-        var roleEntity = roleRepo.findById(userInput.getRoleId())
+        RoleEntity roleEntity = roleRepo.findById(userInput.getRoleId())
                 .orElseThrow(() -> new IdNotFoundException("Role of id:"+userInput.getRoleId()+" could not be found in the database"));
         return userMapper.toUser(userRepo.save(new UserEntity(
                 null,
