@@ -38,7 +38,7 @@ public class ModelServiceImpl implements ModelService {
                 .orElseThrow(() -> new IdNotFoundException("Model of id:"+model.getId()+" could not be found in the database"));
         ManufacturerDictionary manufacturerDictionary = (ManufacturerDictionary) dictionaryRepo.findById(model.getManufacturer().getId())
                 .orElseThrow(() -> new IdNotFoundException("Manufacturer of id:"+model.getManufacturer().getId()+" could not be found in the database"));
-        modelEntity.setManufacturerDictionary(manufacturerDictionary);
+        modelEntity.setManufacturer(manufacturerDictionary);
         modelEntity.setName(model.getName());
         return modelMapper2.toModel(modelEntity);
     }

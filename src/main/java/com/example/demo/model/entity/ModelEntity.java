@@ -22,7 +22,7 @@ public class ModelEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturer_id")
-    private ManufacturerDictionary manufacturerDictionary;
+    private ManufacturerDictionary manufacturer;
 
     private String name;
 
