@@ -11,13 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserlistPageComponent } from './pages/userlist-page/userlist-page.component';
 import { GunlistPageComponent } from './pages/gunlist-page/gunlist-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserlistPageComponent,
     GunlistPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
