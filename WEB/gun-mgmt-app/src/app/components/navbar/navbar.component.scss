@@ -1,0 +1,12 @@
+@import "~@angular/material/theming";
+
+.flexbar {
+  display: flex;
+  flex-flow: row wrap;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.active {
+  background-color: mat-color(mat-palette($mat-purple, 900));
+}
