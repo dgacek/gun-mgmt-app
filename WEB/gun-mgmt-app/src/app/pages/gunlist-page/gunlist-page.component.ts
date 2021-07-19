@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Gun } from 'src/app/models/Gun';
+import { GunService } from 'src/app/services/gun.service';
 
 @Component({
   selector: 'app-gunlist-page',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gunlist-page.component.scss']
 })
 export class GunlistPageComponent implements OnInit {
+  dataSource? :MatTableDataSource<Gun> = undefined;
 
-  constructor() { }
+  constructor(private gunService :GunService) { }
 
   ngOnInit(): void {
+    this.gunService.getAllGuns().subscribe(
+      (response :Gun[]) => {
+        this.dataSource = new MatTableDataSource(response);
+      }
+    )
   }
-
 }

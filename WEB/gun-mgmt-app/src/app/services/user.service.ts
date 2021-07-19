@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 import { UserInput } from '../models/UserInput';
 
@@ -8,7 +9,7 @@ import { UserInput } from '../models/UserInput';
   providedIn: 'root'
 })
 export class UserService {
-  private apiEndpointUrl = "http://localhost:8080/users"
+  private apiEndpointUrl = `${environment.apiUrl}/users`
 
   constructor(private http: HttpClient) { }
 

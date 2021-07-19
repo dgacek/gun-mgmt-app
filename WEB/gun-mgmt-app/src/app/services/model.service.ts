@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Model } from '../models/Model';
 import { ModelInput } from '../models/ModelInput';
 
@@ -8,7 +9,7 @@ import { ModelInput } from '../models/ModelInput';
   providedIn: 'root'
 })
 export class ModelService {
-  private apiEndpointUrl = "http://localhost:8080/models"
+  private apiEndpointUrl = `${environment.apiUrl}/models`
 
   constructor(private http: HttpClient) { }
 
