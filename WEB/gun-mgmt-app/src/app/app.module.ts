@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 import { UserlistPageComponent } from './pages/userlist-page/userlist-page.component';
 import { GunlistPageComponent } from './pages/gunlist-page/gunlist-page.component';
@@ -31,7 +32,8 @@ import { GunlistComponent } from './components/gunlist/gunlist.component';
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

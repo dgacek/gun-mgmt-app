@@ -8,5 +8,6 @@
   flex: 1 1 auto;
 }
 .active {
-  background-color: mat-color(mat-palette($mat-purple, 900));
+  background-color: white;
+  color: mat-color(mat-palette($mat-purple, 700));
 }
