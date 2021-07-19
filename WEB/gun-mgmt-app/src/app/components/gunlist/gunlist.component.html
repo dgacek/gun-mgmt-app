@@ -1,4 +1,7 @@
-<div *ngIf="dataSource !== undefined">
+<div *ngIf="!dataSource" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="dataSource">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>

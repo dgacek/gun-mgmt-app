@@ -1,3 +1,5 @@
+@import "~@angular/material/theming";
+
 table {
   width: 100%;
 }
@@ -17,5 +19,11 @@ th.mat-sort-header-sorted {
 }
 
 .row-selected {
-  font-weight: bold;
+  background-color: mat-color(mat-palette($mat-gray, 700))
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
