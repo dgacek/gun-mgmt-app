@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { DictionaryData } from '../models/DictionaryData';
 import { DictionaryDataInput } from '../models/DictionaryDataInput';
 
@@ -8,7 +9,7 @@ import { DictionaryDataInput } from '../models/DictionaryDataInput';
   providedIn: 'root'
 })
 export class TypeService {
-  private apiEndpointUrl = 'http://localhost:8080/types';
+  private apiEndpointUrl = `${environment.apiUrl}/types`;
 
   constructor(private http: HttpClient) { }
 

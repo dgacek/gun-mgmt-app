@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Role } from '../models/Role';
 import { RoleInput } from '../models/RoleInput';
 
@@ -8,7 +9,7 @@ import { RoleInput } from '../models/RoleInput';
   providedIn: 'root'
 })
 export class RoleService {
-  private apiEndpointUrl = "http://localhost:8080/roles"
+  private apiEndpointUrl = `${environment.apiUrl}/roles`
 
   constructor(private http: HttpClient) { }
 

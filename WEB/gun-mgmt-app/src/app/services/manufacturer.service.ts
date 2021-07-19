@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { DictionaryData } from '../models/DictionaryData';
 import { DictionaryDataInput } from '../models/DictionaryDataInput';
 
@@ -8,7 +9,7 @@ import { DictionaryDataInput } from '../models/DictionaryDataInput';
   providedIn: 'root'
 })
 export class ManufacturerService {
-  private apiEndpointUrl = "http://localhost:8080/manufacturers";
+  private apiEndpointUrl = `${environment.apiUrl}/manufacturers`;
 
   constructor(private http: HttpClient) { }
 
