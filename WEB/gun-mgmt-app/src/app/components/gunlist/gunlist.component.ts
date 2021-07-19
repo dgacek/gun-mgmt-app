@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Gun } from 'src/app/models/Gun';
 import { GunService } from 'src/app/services/gun.service';
@@ -11,6 +11,8 @@ import { GunService } from 'src/app/services/gun.service';
 export class GunlistComponent implements OnInit {
   displayedColumns :string[] = ["id", "model", "caliber", "production-year"];
   dataSource? :MatTableDataSource<Gun> = undefined;
+  @Output() selectionChanged = new EventEmitter<Gun>();
+  selectedItem? :Gun = undefined;
 
   constructor(private gunService :GunService) { }
 
@@ -20,6 +22,11 @@ export class GunlistComponent implements OnInit {
         this.dataSource = new MatTableDataSource(response);
       }
     )
+  }
+
+  setSelectedItem(item: Gun) {
+    this.selectionChanged.emit(item);
+    this.selectedItem = item;
   }
 
 }

@@ -1,1 +1,10 @@
-<app-gunlist></app-gunlist>
+<div class="root">
+  <div class="table">
+    <app-gunlist (selectionChanged)="setSelectedItem($event)"></app-gunlist>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button color="accent" class="space-around">Add</button>
+    <button mat-raised-button color="primary" class="space-around">Edit</button>
+    <button mat-raised-button color="warn" class="space-around">Delete</button>
+  </div>
+</div>

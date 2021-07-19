@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { Gun } from 'src/app/models/Gun';
-import { GunService } from 'src/app/services/gun.service';
 
 @Component({
   selector: 'app-gunlist-page',
@@ -9,9 +7,15 @@ import { GunService } from 'src/app/services/gun.service';
   styleUrls: ['./gunlist-page.component.scss']
 })
 export class GunlistPageComponent implements OnInit {
+  selectedItem? :Gun = undefined; 
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  setSelectedItem(item :Gun) {
+    this.selectedItem = item;
+    console.log(item);
   }
 }
