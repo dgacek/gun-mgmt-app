@@ -9,15 +9,9 @@ import { GunService } from 'src/app/services/gun.service';
   styleUrls: ['./gunlist-page.component.scss']
 })
 export class GunlistPageComponent implements OnInit {
-  dataSource? :MatTableDataSource<Gun> = undefined;
 
-  constructor(private gunService :GunService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.gunService.getAllGuns().subscribe(
-      (response :Gun[]) => {
-        this.dataSource = new MatTableDataSource(response);
-      }
-    )
   }
 }

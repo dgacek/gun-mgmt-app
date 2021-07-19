@@ -13,6 +13,7 @@ import { UserlistPageComponent } from './pages/userlist-page/userlist-page.compo
 import { GunlistPageComponent } from './pages/gunlist-page/gunlist-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { GunlistComponent } from './components/gunlist/gunlist.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     UserlistPageComponent,
     GunlistPageComponent,
     LoginPageComponent,
-    NavbarComponent
+    NavbarComponent,
+    GunlistComponent
   ],
   imports: [
     BrowserModule,
