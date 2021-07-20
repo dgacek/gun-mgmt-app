@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DictionaryData } from 'src/app/models/DictionaryData';
 import { Model } from 'src/app/models/Model';
 import { ManufacturerService } from 'src/app/services/manufacturer.service';
@@ -18,7 +18,8 @@ export class AddEditModelDialogComponent implements OnInit {
   constructor(private modelService: ModelService,
     private manufacturerService: ManufacturerService,
     public dialogRef: MatDialogRef<AddEditModelDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public editId?: number
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public editId?: number,
   ) { }
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DictionaryData } from 'src/app/models/DictionaryData';
 import { Gun } from 'src/app/models/Gun';
 import { Model } from 'src/app/models/Model';
@@ -72,19 +72,20 @@ export class AddEditGunDialogComponent implements OnInit {
     )
   }
 
-  openAddModelDialog(): void {
-    const dialogRef = this.dialog.open(AddEditModelDialogComponent);
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response.updateList) {
-          this.updateModelList();
-        }
+  openAddEditModelDialog(prefs: {edit: boolean}): void {
+    let dialogRef;
+    if (prefs.edit) {
+      dialogRef = this.dialog.open(AddEditModelDialogComponent, { data: this.modelId });
+    } else {
+      dialogRef = this.dialog.open(AddEditModelDialogComponent);
       }
-    )
-  }
-
-  openEditModelDialog(): void {
-
+      dialogRef.afterClosed().subscribe(
+        (response) => {
+          if (response.updateList) {
+            this.updateModelList();
+          }
+        }
+      )
   }
 
   openDeleteModelDialog(): void {

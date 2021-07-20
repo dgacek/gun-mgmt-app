@@ -18,6 +18,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [disabled]="!manufacturerId || !name">Confirm</button>
-  <button mat-button>Cancel</button>
+  <button mat-button [disabled]="!manufacturerId || !name" (click)="doAddOrEdit()">Confirm</button>
+  <button mat-button (click)="dialogRef.close({updateList: false})">Cancel</button>
 </div>

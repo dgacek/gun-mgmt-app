@@ -9,32 +9,26 @@ import { Gun } from 'src/app/models/Gun';
   styleUrls: ['./gunlist-page.component.scss']
 })
 export class GunlistPageComponent implements OnInit {
-  selectedItem? :Gun = undefined;
-  viewUpdater :boolean = false; 
+  selectedItem?: Gun = undefined;
+  viewUpdater: boolean = false;
 
-  constructor(public dialog :MatDialog) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  setSelectedItem(item :Gun) {
+  setSelectedItem(item: Gun) {
     this.selectedItem = item;
     console.log(item);
   }
 
-  openAddGunDialog(): void {
-    const dialogRef = this.dialog.open(AddEditGunDialogComponent);
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response.updateList) {
-          this.updateView();
-        }
-      }
-    )
-  }
-
-  openEditGunDialog(): void {
-    const dialogRef = this.dialog.open(AddEditGunDialogComponent, {data: this.selectedItem ? this.selectedItem.id : null});
+  openAddEditGunDialog(prefs: {edit: boolean}): void {
+    let dialogRef;
+    if (prefs.edit) {
+      dialogRef = this.dialog.open(AddEditGunDialogComponent, { data: this.selectedItem ? this.selectedItem.id : null });
+    } else {
+      dialogRef = this.dialog.open(AddEditGunDialogComponent);
+    }
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response.updateList) {
@@ -47,7 +41,7 @@ export class GunlistPageComponent implements OnInit {
   /**
    * Signals the child GunlistComponent to update the list, utilizes child's ngOnChanges()
    */
-  updateView() :void {
+  updateView(): void {
     this.viewUpdater = !this.viewUpdater;
   }
 
