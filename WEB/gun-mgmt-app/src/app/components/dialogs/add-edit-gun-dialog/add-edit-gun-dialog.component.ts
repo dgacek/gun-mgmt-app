@@ -7,6 +7,7 @@ import { CaliberService } from 'src/app/services/caliber.service';
 import { GunService } from 'src/app/services/gun.service';
 import { ModelService } from 'src/app/services/model.service';
 import { TypeService } from 'src/app/services/type.service';
+import { AddEditDictionaryDialogComponent } from '../add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
 import { AddEditModelDialogComponent } from '../add-edit-model-dialog/add-edit-model-dialog.component';
 
 @Component({
@@ -88,8 +89,36 @@ export class AddEditGunDialogComponent implements OnInit {
       )
   }
 
-  openDeleteModelDialog(): void {
+  openAddEditCaliberDialog(prefs: {edit: boolean}): void {
+    let dialogRef;
+    if (prefs.edit) {
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "caliber", editId: this.editId}});
+    } else {
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "caliber"}});
+    }
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response.updateList) {
+          this.updateCaliberList();
+        }
+      }
+    )
+  }
 
+  openAddEditTypeDialog(prefs: {edit: boolean}): void {
+    let dialogRef;
+    if (prefs.edit) {
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "type", editId: this.editId}});
+    } else {
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "type"}});
+    }
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response.updateList) {
+          this.updateTypeList();
+        }
+      }
+    )
   }
 
   doAddOrEdit(): void {

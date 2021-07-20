@@ -4,6 +4,7 @@ import { DictionaryData } from 'src/app/models/DictionaryData';
 import { Model } from 'src/app/models/Model';
 import { ManufacturerService } from 'src/app/services/manufacturer.service';
 import { ModelService } from 'src/app/services/model.service';
+import { AddEditDictionaryDialogComponent } from '../add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
 
 @Component({
   selector: 'app-add-edit-model-dialog',
@@ -38,6 +39,22 @@ export class AddEditModelDialogComponent implements OnInit {
     this.manufacturerService.getAllManufacturers().subscribe(
       (response: DictionaryData[]) => {
         this.manufacturers = response;
+      }
+    )
+  }
+
+  openAddEditManufacturerDialog(prefs: {edit: boolean}): void {
+    let dialogRef;
+    if (prefs.edit) {
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "manufacturer", editId: this.manufacturerId}});
+    } else {
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "manufacturer"}});
+    }
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response.updateList) {
+          this.updateManufacturerList();
+        }
       }
     )
   }

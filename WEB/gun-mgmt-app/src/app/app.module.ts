@@ -24,6 +24,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { GunlistComponent } from './components/gunlist/gunlist.component';
 import { AddEditGunDialogComponent } from './components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
 import { AddEditModelDialogComponent } from './components/dialogs/add-edit-model-dialog/add-edit-model-dialog.component';
+import { AddEditDictionaryDialogComponent } from './components/dialogs/add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AddEditModelDialogComponent } from './components/dialogs/add-edit-model
     NavbarComponent,
     GunlistComponent,
     AddEditGunDialogComponent,
-    AddEditModelDialogComponent
+    AddEditModelDialogComponent,
+    AddEditDictionaryDialogComponent
   ],
   imports: [
     BrowserModule,

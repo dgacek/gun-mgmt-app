@@ -8,9 +8,15 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-icon-button><mat-icon>add</mat-icon></button>
-  <button mat-icon-button *ngIf="manufacturerId"><mat-icon>create</mat-icon></button>
-  <button mat-icon-button *ngIf="manufacturerId"><mat-icon>remove</mat-icon></button>
+  <button mat-icon-button (click)="openAddEditManufacturerDialog({edit: false})">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="manufacturerId" (click)="openAddEditManufacturerDialog({edit: true})">
+    <mat-icon>create</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="manufacturerId">
+    <mat-icon>remove</mat-icon>
+  </button>
   <br>
   <mat-form-field>
     <mat-label>Name</mat-label>

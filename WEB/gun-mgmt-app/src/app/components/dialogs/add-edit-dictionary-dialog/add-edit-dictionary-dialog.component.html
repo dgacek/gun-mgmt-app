@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Add {{prefs.mode}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="!name" (click)="doAddOrEdit()">Confirm</button>
+  <button mat-button (click)="dialogRef.close({updateList: false})">Cancel</button>
+</div>
