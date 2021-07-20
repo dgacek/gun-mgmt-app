@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Gun } from 'src/app/models/Gun';
@@ -10,22 +10,35 @@ import { GunService } from 'src/app/services/gun.service';
   styleUrls: ['./gunlist.component.scss']
 })
 export class GunlistComponent implements OnInit {
-  displayedColumns :string[] = ["id", "model", "caliber", "production-year"];
-  dataSource? :MatTableDataSource<Gun> = undefined;
+  displayedColumns: string[] = ["id", "model", "caliber", "production-year"];
+  dataSource?: MatTableDataSource<Gun> = undefined;
   @Output() selectionChanged = new EventEmitter<Gun>();
-  selectedItem? :Gun = undefined;
-  
+  selectedItem?: Gun = undefined;
+  @Input() viewUpdater :boolean = false;
+
   @ViewChild(MatSort, { static: false }) set sort(val: MatSort) {
     if (val && this.dataSource) {
       this.dataSource.sort = val;
     }
   }
 
-  constructor(private gunService :GunService) { }
+  constructor(private gunService: GunService) { }
 
   ngOnInit(): void {
+    this.updateList();
+  }
+
+  ngOnChanges(changes :{[property :string]: SimpleChange}) {
+    let updateView: SimpleChange = changes['viewUpdater'];
+    if (updateView) {
+      this.updateList();
+    }
+    
+  }
+
+  updateList(): void {
     this.gunService.getAllGuns().subscribe(
-      (response :Gun[]) => {
+      (response: Gun[]) => {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sortingDataAccessor = (item, property) => {
           switch (property) {
@@ -41,9 +54,8 @@ export class GunlistComponent implements OnInit {
     )
   }
 
-  setSelectedItem(item: Gun) {
+  setSelectedItem(item: Gun): void {
     this.selectionChanged.emit(item);
     this.selectedItem = item;
   }
-
 }

@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Add gun</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Model</mat-label>
+    <mat-select [(ngModel)]="modelId">
+      <mat-option *ngFor="let model of models" [value]="model.id">
+        {{model.manufacturer.name}} {{model.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Caliber</mat-label>
+    <mat-select [(ngModel)]="caliberId">
+      <mat-option *ngFor="let caliber of calibers" [value]="caliber.id">
+        {{caliber.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Type</mat-label>
+    <mat-select [(ngModel)]="typeId">
+      <mat-option *ngFor="let type of types" [value]="type.id">
+        {{type.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Production year</mat-label>
+    <input matInput [(ngModel)]="productionYear" type="number">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="center">
+  <button mat-button [disabled]="!modelId || !caliberId || !typeId || !productionYear" (click)="doAdd()">Add</button>
+  <button mat-button (click)="dialogRef.close({updateList: false})">Cancel</button>
+</div>
