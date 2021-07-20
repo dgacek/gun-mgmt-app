@@ -11,16 +11,11 @@ import { GunService } from 'src/app/services/gun.service';
 })
 export class GunlistComponent implements OnInit {
   displayedColumns: string[] = ["id", "model", "caliber", "production-year"];
-  dataSource?: MatTableDataSource<Gun> = undefined;
+  dataSource: MatTableDataSource<Gun> = new MatTableDataSource;
   @Output() selectionChanged = new EventEmitter<Gun>();
   selectedItem?: Gun = undefined;
-  @Input() viewUpdater :boolean = false;
-
-  @ViewChild(MatSort, { static: false }) set sort(val: MatSort) {
-    if (val && this.dataSource) {
-      this.dataSource.sort = val;
-    }
-  }
+  @Input() viewUpdater: boolean = false;
+  @ViewChild(MatSort, {static: false}) sort: MatSort = new MatSort;
 
   constructor(private gunService: GunService) { }
 
@@ -28,12 +23,12 @@ export class GunlistComponent implements OnInit {
     this.updateList();
   }
 
-  ngOnChanges(changes :{[property :string]: SimpleChange}) {
+  ngOnChanges(changes: { [property: string]: SimpleChange }) {
     let updateView: SimpleChange = changes['viewUpdater'];
     if (updateView) {
       this.updateList();
     }
-    
+
   }
 
   updateList(): void {
@@ -50,6 +45,7 @@ export class GunlistComponent implements OnInit {
             default: return "";
           }
         };
+        this.dataSource.sort = this.sort;
       }
     )
   }
