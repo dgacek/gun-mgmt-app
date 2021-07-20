@@ -15,13 +15,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 import { UserlistPageComponent } from './pages/userlist-page/userlist-page.component';
 import { GunlistPageComponent } from './pages/gunlist-page/gunlist-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { GunlistComponent } from './components/gunlist/gunlist.component';
-import { AddGunDialogComponent } from './components/dialogs/add-gun-dialog/add-gun-dialog.component';
+import { AddEditGunDialogComponent } from './components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
+import { AddEditModelDialogComponent } from './components/dialogs/add-edit-model-dialog/add-edit-model-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { AddGunDialogComponent } from './components/dialogs/add-gun-dialog/add-g
     LoginPageComponent,
     NavbarComponent,
     GunlistComponent,
-    AddGunDialogComponent
+    AddEditGunDialogComponent,
+    AddEditModelDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { AddGunDialogComponent } from './components/dialogs/add-gun-dialog/add-g
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

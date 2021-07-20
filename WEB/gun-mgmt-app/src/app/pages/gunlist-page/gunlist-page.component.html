@@ -4,7 +4,7 @@
   </div>
   <div class="buttons">
     <button mat-raised-button color="accent" class="space-around" (click)="openAddGunDialog()">Add</button>
-    <button *ngIf="selectedItem" mat-raised-button color="primary" class="space-around">Edit</button>
+    <button *ngIf="selectedItem" mat-raised-button color="primary" class="space-around" (click)="openEditGunDialog()">Edit</button>
     <button *ngIf="selectedItem" mat-raised-button color="warn" class="space-around">Delete</button>
   </div>
 </div>

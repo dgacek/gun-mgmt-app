@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddGunDialogComponent } from 'src/app/components/dialogs/add-gun-dialog/add-gun-dialog.component';
+import { AddEditGunDialogComponent } from 'src/app/components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
 import { Gun } from 'src/app/models/Gun';
 
 @Component({
@@ -23,7 +23,18 @@ export class GunlistPageComponent implements OnInit {
   }
 
   openAddGunDialog(): void {
-    const dialogRef = this.dialog.open(AddGunDialogComponent);
+    const dialogRef = this.dialog.open(AddEditGunDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response.updateList) {
+          this.updateView();
+        }
+      }
+    )
+  }
+
+  openEditGunDialog(): void {
+    const dialogRef = this.dialog.open(AddEditGunDialogComponent, {data: this.selectedItem ? this.selectedItem.id : null});
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response.updateList) {
