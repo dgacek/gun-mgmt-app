@@ -1,24 +1,10 @@
-<div *ngIf="dataSource !== undefined">
-  <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let element">{{element.id}}</td>
-    </ng-container>
-    <ng-container matColumnDef="model">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Model</th>
-      <td mat-cell *matCellDef="let element">{{element.model.manufacturer.name}} {{element.model.name}}</td>
-    </ng-container>
-    <ng-container matColumnDef="caliber">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Caliber</th>
-      <td mat-cell *matCellDef="let element">{{element.caliber.name}}</td>
-    </ng-container>
-    <ng-container matColumnDef="production-year">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Production year</th>
-      <td mat-cell *matCellDef="let element">{{element.productionYear}}</td>
-    </ng-container>
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-      <td mat-cell *matCellDef="let element">{{element.type.name}}</td>
-    </ng-container>
-  </table>
+<div class="root">
+  <div class="table">
+    <app-gunlist (selectionChanged)="setSelectedItem($event)" [viewUpdater]="viewUpdater"></app-gunlist>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button color="accent" class="space-around" (click)="openAddEditGunDialog({edit: false})">Add</button>
+    <button *ngIf="selectedItem" mat-raised-button color="primary" class="space-around" (click)="openAddEditGunDialog({edit: true})">Edit</button>
+    <button *ngIf="selectedItem" mat-raised-button color="warn" class="space-around" (click)="openDeleteGunDialog()">Delete</button>
+  </div>
 </div>

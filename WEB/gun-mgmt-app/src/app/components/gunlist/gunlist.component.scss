@@ -1,0 +1,29 @@
+@import "~@angular/material/theming";
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.row-selected {
+  background-color: mat-color(mat-palette($mat-gray, 700))
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

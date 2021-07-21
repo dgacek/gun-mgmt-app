@@ -32,7 +32,7 @@ public class GunController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Gun> updateGun(Gun gun) {
+    public ResponseEntity<Gun> updateGun(@RequestBody Gun gun) {
         return new ResponseEntity<>(gunService.updateGun(gun), HttpStatus.OK);
     }
 
