@@ -1,25 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditGunDialogComponent } from 'src/app/components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
+import { DeleteGenericDialogComponent } from 'src/app/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
 import { Gun } from 'src/app/models/Gun';
+import { GunService } from 'src/app/services/gun.service';
 
 @Component({
   selector: 'app-gunlist-page',
   templateUrl: './gunlist-page.component.html',
   styleUrls: ['./gunlist-page.component.scss']
 })
-export class GunlistPageComponent implements OnInit {
+export class GunlistPageComponent {
   selectedItem?: Gun = undefined;
   viewUpdater: boolean = false;
 
-  constructor(public dialog: MatDialog) { }
-
-  ngOnInit(): void {
-  }
+  constructor( private gunService: GunService,
+    public dialog: MatDialog) { }
 
   setSelectedItem(item: Gun) {
     this.selectedItem = item;
-    console.log(item);
   }
 
   openAddEditGunDialog(prefs: {edit: boolean}): void {
@@ -31,7 +30,18 @@ export class GunlistPageComponent implements OnInit {
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
-        if (response.updateList) {
+        if (response && response.updateList) {
+          this.updateView();
+        }
+      }
+    )
+  }
+
+  openDeleteGunDialog(): void {
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {serviceMethodCallback: this.gunService.deleteGun.bind(this.gunService), id: this.selectedItem ? this.selectedItem.id : null}});
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response && response.updateList) {
           this.updateView();
         }
       }

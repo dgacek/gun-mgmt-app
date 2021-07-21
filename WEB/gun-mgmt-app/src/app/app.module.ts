@@ -25,6 +25,7 @@ import { GunlistComponent } from './components/gunlist/gunlist.component';
 import { AddEditGunDialogComponent } from './components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
 import { AddEditModelDialogComponent } from './components/dialogs/add-edit-model-dialog/add-edit-model-dialog.component';
 import { AddEditDictionaryDialogComponent } from './components/dialogs/add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
+import { DeleteGenericDialogComponent } from './components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AddEditDictionaryDialogComponent } from './components/dialogs/add-edit-
     GunlistComponent,
     AddEditGunDialogComponent,
     AddEditModelDialogComponent,
-    AddEditDictionaryDialogComponent
+    AddEditDictionaryDialogComponent,
+    DeleteGenericDialogComponent
   ],
   imports: [
     BrowserModule,

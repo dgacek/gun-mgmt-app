@@ -5,6 +5,7 @@ import { Model } from 'src/app/models/Model';
 import { ManufacturerService } from 'src/app/services/manufacturer.service';
 import { ModelService } from 'src/app/services/model.service';
 import { AddEditDictionaryDialogComponent } from '../add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
+import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-generic-dialog.component';
 
 @Component({
   selector: 'app-add-edit-model-dialog',
@@ -52,7 +53,18 @@ export class AddEditModelDialogComponent implements OnInit {
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
-        if (response.updateList) {
+        if (response && response.updateList) {
+          this.updateManufacturerList();
+        }
+      }
+    )
+  }
+
+  openDeleteManufacturerDialog(): void {
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {serviceMethodCallback: this.manufacturerService.deleteManufacturer.bind(this.manufacturerService), id: this.manufacturerId}});
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response && response.updateList) {
           this.updateManufacturerList();
         }
       }

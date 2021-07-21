@@ -9,6 +9,7 @@ import { ModelService } from 'src/app/services/model.service';
 import { TypeService } from 'src/app/services/type.service';
 import { AddEditDictionaryDialogComponent } from '../add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
 import { AddEditModelDialogComponent } from '../add-edit-model-dialog/add-edit-model-dialog.component';
+import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-generic-dialog.component';
 
 @Component({
   selector: 'app-add-edit-gun-dialog',
@@ -73,48 +74,81 @@ export class AddEditGunDialogComponent implements OnInit {
     )
   }
 
-  openAddEditModelDialog(prefs: {edit: boolean}): void {
+  openAddEditModelDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
       dialogRef = this.dialog.open(AddEditModelDialogComponent, { data: this.modelId });
     } else {
       dialogRef = this.dialog.open(AddEditModelDialogComponent);
-      }
-      dialogRef.afterClosed().subscribe(
-        (response) => {
-          if (response.updateList) {
-            this.updateModelList();
-          }
-        }
-      )
-  }
-
-  openAddEditCaliberDialog(prefs: {edit: boolean}): void {
-    let dialogRef;
-    if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "caliber", editId: this.editId}});
-    } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "caliber"}});
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
-        if (response.updateList) {
+        if (response && response.updateList) {
+          this.updateModelList();
+        }
+      }
+    )
+  }
+
+  openAddEditCaliberDialog(prefs: { edit: boolean }): void {
+    let dialogRef;
+    if (prefs.edit) {
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "caliber", editId: this.editId } });
+    } else {
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "caliber" } });
+    }
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response && response.updateList) {
           this.updateCaliberList();
         }
       }
     )
   }
 
-  openAddEditTypeDialog(prefs: {edit: boolean}): void {
+  openAddEditTypeDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "type", editId: this.editId}});
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "type", editId: this.editId } });
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "type"}});
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "type" } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
-        if (response.updateList) {
+        if (response && response.updateList) {
+          this.updateTypeList();
+        }
+      }
+    )
+  }
+
+  openDeleteModelDialog(): void {
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.modelService.deleteModel.bind(this.modelService), id: this.modelId } });
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response && response.updateList) {
+          this.updateModelList();
+        }
+      }
+    )
+  }
+
+  openDeleteCaliberDialog(): void {
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.caliberService.deleteCaliber.bind(this.caliberService), id: this.caliberId } });
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response && response.updateList) {
+          this.updateCaliberList();
+        }
+      }
+    )
+  }
+
+  openDeleteTypeDialog(): void {
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.typeService.deleteType.bind(this.typeService), id: this.typeId } });
+    dialogRef.afterClosed().subscribe(
+      (response) => {
+        if (response && response.updateList) {
           this.updateTypeList();
         }
       }

@@ -15,7 +15,7 @@
   <button mat-icon-button *ngIf="modelId" (click)="openAddEditModelDialog({edit: true})">
     <mat-icon>create</mat-icon>
   </button>
-  <button mat-icon-button *ngIf="modelId">
+  <button mat-icon-button *ngIf="modelId" (click)="openDeleteModelDialog()">
     <mat-icon>remove</mat-icon>
   </button>
   <br>
@@ -33,7 +33,7 @@
   <button mat-icon-button *ngIf="caliberId" (click)="openAddEditCaliberDialog({edit: true})">
     <mat-icon>create</mat-icon>
   </button>
-  <button mat-icon-button *ngIf="caliberId">
+  <button mat-icon-button *ngIf="caliberId" (click)="openDeleteCaliberDialog()">
     <mat-icon>remove</mat-icon>
   </button>
   <br>
@@ -51,7 +51,7 @@
   <button mat-icon-button *ngIf="typeId" (click)="openAddEditTypeDialog({edit: true})">
     <mat-icon>create</mat-icon>
   </button>
-  <button mat-icon-button *ngIf="typeId">
+  <button mat-icon-button *ngIf="typeId" (click)="openDeleteTypeDialog()">
     <mat-icon>remove</mat-icon>
   </button>
   <br>

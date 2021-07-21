@@ -14,7 +14,7 @@
   <button mat-icon-button *ngIf="manufacturerId" (click)="openAddEditManufacturerDialog({edit: true})">
     <mat-icon>create</mat-icon>
   </button>
-  <button mat-icon-button *ngIf="manufacturerId">
+  <button mat-icon-button *ngIf="manufacturerId" (click)="openDeleteManufacturerDialog()">
     <mat-icon>remove</mat-icon>
   </button>
   <br>

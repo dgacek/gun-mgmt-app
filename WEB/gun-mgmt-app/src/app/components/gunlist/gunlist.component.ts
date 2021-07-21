@@ -10,7 +10,7 @@ import { GunService } from 'src/app/services/gun.service';
   styleUrls: ['./gunlist.component.scss']
 })
 export class GunlistComponent implements OnInit {
-  displayedColumns: string[] = ["id", "model", "caliber", "production-year"];
+  displayedColumns: string[] = ["id", "model", "caliber", "production-year", "type"];
   dataSource: MatTableDataSource<Gun> = new MatTableDataSource;
   @Output() selectionChanged = new EventEmitter<Gun>();
   selectedItem?: Gun = undefined;
