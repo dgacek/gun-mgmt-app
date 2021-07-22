@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Gun } from '../models/Gun';
-import { GunInput } from '../models/GunInput';
+import { Gun } from '../types/Gun';
+import { GunInput } from '../types/GunInput';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DictionaryData } from 'src/app/models/DictionaryData';
+import { DictionaryData } from 'src/app/types/DictionaryData';
 import { CaliberService } from 'src/app/services/caliber.service';
 import { ManufacturerService } from 'src/app/services/manufacturer.service';
 import { TypeService } from 'src/app/services/type.service';

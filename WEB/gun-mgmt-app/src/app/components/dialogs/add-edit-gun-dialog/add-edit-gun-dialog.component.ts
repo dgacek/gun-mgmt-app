@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DictionaryData } from 'src/app/models/DictionaryData';
-import { Gun } from 'src/app/models/Gun';
-import { Model } from 'src/app/models/Model';
+import { DictionaryData } from 'src/app/types/DictionaryData';
+import { Gun } from 'src/app/types/Gun';
+import { Model } from 'src/app/types/Model';
 import { CaliberService } from 'src/app/services/caliber.service';
 import { GunService } from 'src/app/services/gun.service';
 import { ModelService } from 'src/app/services/model.service';

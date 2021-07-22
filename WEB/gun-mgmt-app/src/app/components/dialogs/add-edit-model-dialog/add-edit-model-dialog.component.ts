@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DictionaryData } from 'src/app/models/DictionaryData';
-import { Model } from 'src/app/models/Model';
+import { DictionaryData } from 'src/app/types/DictionaryData';
+import { Model } from 'src/app/types/Model';
 import { ManufacturerService } from 'src/app/services/manufacturer.service';
 import { ModelService } from 'src/app/services/model.service';
 import { AddEditDictionaryDialogComponent } from '../add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
