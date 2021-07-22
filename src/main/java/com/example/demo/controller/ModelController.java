@@ -26,17 +26,17 @@ public class ModelController {
         return new ResponseEntity<>(modelService.findModelById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Model> addModel(@RequestBody ModelInput modelInput) {
         return new ResponseEntity<>(modelService.addModel(modelInput), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<Model> updateModel(@RequestBody Model model) {
         return new ResponseEntity<>(modelService.updateModel(model), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteModel(@PathVariable Long id) {
         modelService.deleteModel(id);
     }

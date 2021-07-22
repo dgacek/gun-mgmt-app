@@ -26,17 +26,17 @@ public class GunController {
         return new ResponseEntity<>(gunService.findGunById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Gun> addGun(@RequestBody GunInput gunInput) {
         return new ResponseEntity<>(gunService.addGun(gunInput), HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<Gun> updateGun(@RequestBody Gun gun) {
         return new ResponseEntity<>(gunService.updateGun(gun), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteGun(@PathVariable Long id) {
         gunService.deleteGun(id);
     }
