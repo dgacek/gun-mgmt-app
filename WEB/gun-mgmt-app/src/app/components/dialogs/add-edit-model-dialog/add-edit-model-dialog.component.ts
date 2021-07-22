@@ -27,7 +27,7 @@ export class AddEditModelDialogComponent implements OnInit {
   ngOnInit(): void {
     this.updateManufacturerList();
     if (this.editId) {
-      this.modelService.getModelById(this.editId).subscribe(
+      this.modelService.getById(this.editId).subscribe(
         (response: Model) => {
           this.manufacturerId = response.manufacturer.id;
           this.name = response.name;
@@ -37,7 +37,7 @@ export class AddEditModelDialogComponent implements OnInit {
   }
 
   updateManufacturerList(): void {
-    this.manufacturerService.getAllManufacturers().subscribe(
+    this.manufacturerService.getAll().subscribe(
       (response: DictionaryData[]) => {
         this.manufacturers = response;
       }
@@ -61,7 +61,7 @@ export class AddEditModelDialogComponent implements OnInit {
   }
 
   openDeleteManufacturerDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {serviceMethodCallback: this.manufacturerService.deleteManufacturer.bind(this.manufacturerService), id: this.manufacturerId}});
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {serviceMethodCallback: this.manufacturerService.delete.bind(this.manufacturerService), id: this.manufacturerId}});
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -74,13 +74,13 @@ export class AddEditModelDialogComponent implements OnInit {
   doAddOrEdit(): void {
     if (this.manufacturerId && this.name) {
       if (this.editId) {
-        this.modelService.updateModel({ id: this.editId, manufacturer: { id: this.manufacturerId }, name: this.name } as Model).subscribe(
+        this.modelService.update({ id: this.editId, manufacturer: { id: this.manufacturerId }, name: this.name } as Model).subscribe(
           () => {
             this.dialogRef.close({ updateList: true });
           }
         )
       } else {
-        this.modelService.addModel({ manufacturerId: this.manufacturerId, name: this.name }).subscribe(
+        this.modelService.add({ manufacturerId: this.manufacturerId, name: this.name }).subscribe(
           () => {
             this.dialogRef.close({ updateList: true });
           }

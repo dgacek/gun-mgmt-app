@@ -25,13 +25,13 @@ export class AddEditDictionaryDialogComponent implements OnInit {
       let serviceResult;
       switch (this.prefs.mode) {
         case "manufacturer":
-          serviceResult = this.manufacturerService.getManufacturerById(this.prefs.editId);
+          serviceResult = this.manufacturerService.getById(this.prefs.editId);
           break;
         case "caliber":
-          serviceResult = this.caliberService.getCaliberById(this.prefs.editId);
+          serviceResult = this.caliberService.getById(this.prefs.editId);
           break;
         case "type":
-          serviceResult = this.typeService.getTypeById(this.prefs.editId);
+          serviceResult = this.typeService.getById(this.prefs.editId);
           break;
       }
       if (serviceResult) {
@@ -50,25 +50,25 @@ export class AddEditDictionaryDialogComponent implements OnInit {
       if (this.prefs.editId) {
         switch (this.prefs.mode) {
           case "manufacturer":
-            serviceResult = this.manufacturerService.updateManufacturer({ id: this.prefs.editId, name: this.name });
+            serviceResult = this.manufacturerService.update({ id: this.prefs.editId, name: this.name });
             break;
           case "caliber":
-            serviceResult = this.caliberService.updateCaliber({ id: this.prefs.editId, name: this.name });
+            serviceResult = this.caliberService.update({ id: this.prefs.editId, name: this.name });
             break;
           case "type":
-            serviceResult = this.typeService.updateType({ id: this.prefs.editId, name: this.name });
+            serviceResult = this.typeService.update({ id: this.prefs.editId, name: this.name });
             break;
         }
       } else {
         switch (this.prefs.mode) {
           case "manufacturer":
-            serviceResult = this.manufacturerService.addManufacturer({ name: this.name });
+            serviceResult = this.manufacturerService.add({ name: this.name });
             break;
           case "caliber":
-            serviceResult = this.caliberService.addCaliber({ name: this.name });
+            serviceResult = this.caliberService.add({ name: this.name });
             break;
           case "type":
-            serviceResult = this.typeService.addType({ name: this.name });
+            serviceResult = this.typeService.add({ name: this.name });
             break;
         }
       }

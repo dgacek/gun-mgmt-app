@@ -38,7 +38,7 @@ export class GunlistPageComponent {
   }
 
   openDeleteGunDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {serviceMethodCallback: this.gunService.deleteGun.bind(this.gunService), id: this.selectedItem ? this.selectedItem.id : null}});
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {serviceMethodCallback: this.gunService.delete.bind(this.gunService), id: this.selectedItem ? this.selectedItem.id : null}});
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {

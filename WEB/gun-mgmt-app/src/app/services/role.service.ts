@@ -2,34 +2,35 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { BasicCRUDService } from '../types/BasicCRUDService';
 import { Role } from '../types/Role';
 import { RoleInput } from '../types/RoleInput';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoleService {
+export class RoleService implements BasicCRUDService {
   private apiEndpointUrl = `${environment.apiUrl}/roles`
 
   constructor(private http: HttpClient) { }
 
-  public getAllRoles() :Observable<Role[]> {
+  public getAll() :Observable<Role[]> {
     return this.http.get<Role[]>(`${this.apiEndpointUrl}`);
   }
 
-  public getRoleById(id: number) :Observable<Role> {
+  public getById(id: number) :Observable<Role> {
     return this.http.get<Role>(`${this.apiEndpointUrl}/${id}`);
   }
 
-  public addRole(roleInput: RoleInput) :Observable<Role> {
-    return this.http.post<Role>(`${this.apiEndpointUrl}/add`, roleInput);
+  public add(inputObject: RoleInput) :Observable<Role> {
+    return this.http.post<Role>(`${this.apiEndpointUrl}/add`, inputObject);
   }
 
-  public updateRole(role: Role) :Observable<Role> {
-    return this.http.put<Role>(`${this.apiEndpointUrl}/update`, role);
+  public update(updatedObject: Role) :Observable<Role> {
+    return this.http.put<Role>(`${this.apiEndpointUrl}/update`, updatedObject);
   }
 
-  public deleteRole(id: number) :Observable<void> {
+  public delete(id: number) :Observable<void> {
     return this.http.delete<void>(`${this.apiEndpointUrl}/delete/${id}`);
   }
 }

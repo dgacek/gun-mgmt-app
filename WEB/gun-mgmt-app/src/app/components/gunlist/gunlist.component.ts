@@ -32,7 +32,7 @@ export class GunlistComponent implements OnInit {
   }
 
   updateList(): void {
-    this.gunService.getAllGuns().subscribe(
+    this.gunService.getAll().subscribe(
       (response: Gun[]) => {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sortingDataAccessor = (item, property) => {

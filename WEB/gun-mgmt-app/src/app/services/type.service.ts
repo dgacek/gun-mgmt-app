@@ -2,34 +2,35 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { BasicCRUDService } from '../types/BasicCRUDService';
 import { DictionaryData } from '../types/DictionaryData';
 import { DictionaryDataInput } from '../types/DictionaryDataInput';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TypeService {
-  private apiEndpointUrl = `${environment.apiUrl}/types`;
+export class TypeService implements BasicCRUDService {
+  private apiEndpointUrl = `${environment.apiUrl}/dictionary/types`;
 
   constructor(private http: HttpClient) { }
 
-  public getAllTypes() :Observable<DictionaryData[]> {
+  public getAll() :Observable<DictionaryData[]> {
     return this.http.get<DictionaryData[]>(`${this.apiEndpointUrl}`);
   }
 
-  public getTypeById(id: number) :Observable<DictionaryData> {
+  public getById(id: number) :Observable<DictionaryData> {
     return this.http.get<DictionaryData>(`${this.apiEndpointUrl}/${id}`);
   }
 
-  public addType(typeInput: DictionaryDataInput) :Observable<DictionaryData> {
-    return this.http.post<DictionaryData>(`${this.apiEndpointUrl}/add`, typeInput);
+  public add(inputObject: DictionaryDataInput) :Observable<DictionaryData> {
+    return this.http.post<DictionaryData>(`${this.apiEndpointUrl}`, inputObject);
   }
 
-  public updateType(type: DictionaryData) :Observable<DictionaryData> {
-    return this.http.put<DictionaryData>(`${this.apiEndpointUrl}/update`, type);
+  public update(updatedObject: DictionaryData) :Observable<DictionaryData> {
+    return this.http.put<DictionaryData>(`${this.apiEndpointUrl}`, updatedObject);
   }
 
-  public deleteType(id: number) :Observable<void> {
-    return this.http.delete<void>(`${this.apiEndpointUrl}/delete/${id}`);
+  public delete(id: number) :Observable<void> {
+    return this.http.delete<void>(`${this.apiEndpointUrl}/${id}`);
   }
 }
