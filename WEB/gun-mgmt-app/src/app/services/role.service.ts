@@ -14,6 +14,10 @@ export class RoleService implements BasicCRUDService {
 
   constructor(private http: HttpClient) { }
 
+  whoAmI(): string {
+    return "role";
+  }
+
   public getAll() :Observable<Role[]> {
     return this.http.get<Role[]>(`${this.apiEndpointUrl}`);
   }
@@ -23,14 +27,14 @@ export class RoleService implements BasicCRUDService {
   }
 
   public add(inputObject: RoleInput) :Observable<Role> {
-    return this.http.post<Role>(`${this.apiEndpointUrl}/add`, inputObject);
+    return this.http.post<Role>(`${this.apiEndpointUrl}`, inputObject);
   }
 
   public update(updatedObject: Role) :Observable<Role> {
-    return this.http.put<Role>(`${this.apiEndpointUrl}/update`, updatedObject);
+    return this.http.put<Role>(`${this.apiEndpointUrl}`, updatedObject);
   }
 
   public delete(id: number) :Observable<void> {
-    return this.http.delete<void>(`${this.apiEndpointUrl}/delete/${id}`);
+    return this.http.delete<void>(`${this.apiEndpointUrl}/${id}`);
   }
 }

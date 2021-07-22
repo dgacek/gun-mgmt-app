@@ -93,9 +93,9 @@ export class AddEditGunDialogComponent implements OnInit {
   openAddEditCaliberDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "caliber", editId: this.caliberId } });
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService, editId: this.caliberId } });
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "caliber" } });
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -109,9 +109,9 @@ export class AddEditGunDialogComponent implements OnInit {
   openAddEditTypeDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "type", editId: this.typeId } });
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService, editId: this.typeId } });
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "type" } });
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -123,7 +123,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   openDeleteModelDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.modelService.delete.bind(this.modelService), id: this.modelId } });
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.modelService, id: this.modelId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -134,7 +134,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   openDeleteCaliberDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.caliberService.delete.bind(this.caliberService), id: this.caliberId } });
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.caliberService, id: this.caliberId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -145,7 +145,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   openDeleteTypeDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.typeService.delete.bind(this.typeService), id: this.typeId } });
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.typeService, id: this.typeId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {

@@ -14,6 +14,10 @@ export class UserService implements BasicCRUDService {
 
   constructor(private http: HttpClient) { }
 
+  whoAmI(): string {
+    return "user";
+  }
+
   public getAll() :Observable<User[]> {
     return this.http.get<User[]>(`${this.apiEndpointUrl}`);
   }

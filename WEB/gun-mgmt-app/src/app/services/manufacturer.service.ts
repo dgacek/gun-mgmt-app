@@ -14,6 +14,10 @@ export class ManufacturerService implements BasicCRUDService {
 
   constructor(private http: HttpClient) { }
 
+  public whoAmI(): string {
+    return "manufacturer";
+  }
+
   public getAll() :Observable<DictionaryData[]> {
     return this.http.get<DictionaryData[]>(`${this.apiEndpointUrl}`);
   }

@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BasicCRUDService } from 'src/app/types/BasicCRUDService';
 import { DictionaryData } from 'src/app/types/DictionaryData';
-import { CaliberService } from 'src/app/services/caliber.service';
-import { ManufacturerService } from 'src/app/services/manufacturer.service';
-import { TypeService } from 'src/app/services/type.service';
 
 @Component({
   selector: 'app-add-edit-dictionary-dialog',
@@ -13,34 +11,18 @@ import { TypeService } from 'src/app/services/type.service';
 export class AddEditDictionaryDialogComponent implements OnInit {
   name?: string = undefined;
 
-  constructor(private manufacturerService: ManufacturerService,
-    private caliberService: CaliberService,
-    private typeService: TypeService,
+  constructor(
     public dialogRef: MatDialogRef<AddEditDictionaryDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public prefs: { mode: string, editId?: number }
+    @Inject(MAT_DIALOG_DATA) public prefs: { service: BasicCRUDService, editId?: number }
   ) { }
 
   ngOnInit(): void {
     if (this.prefs.editId) {
-      let serviceResult;
-      switch (this.prefs.mode) {
-        case "manufacturer":
-          serviceResult = this.manufacturerService.getById(this.prefs.editId);
-          break;
-        case "caliber":
-          serviceResult = this.caliberService.getById(this.prefs.editId);
-          break;
-        case "type":
-          serviceResult = this.typeService.getById(this.prefs.editId);
-          break;
-      }
-      if (serviceResult) {
-        serviceResult.subscribe(
-          (response: DictionaryData) => {
-            this.name = response.name;
-          }
-        )
-      }
+      this.prefs.service.getById(this.prefs.editId).subscribe(
+        (response: DictionaryData) => {
+          this.name = response.name;
+        }
+      )
     }
   }
 
@@ -48,37 +30,15 @@ export class AddEditDictionaryDialogComponent implements OnInit {
     if (this.name) {
       let serviceResult;
       if (this.prefs.editId) {
-        switch (this.prefs.mode) {
-          case "manufacturer":
-            serviceResult = this.manufacturerService.update({ id: this.prefs.editId, name: this.name });
-            break;
-          case "caliber":
-            serviceResult = this.caliberService.update({ id: this.prefs.editId, name: this.name });
-            break;
-          case "type":
-            serviceResult = this.typeService.update({ id: this.prefs.editId, name: this.name });
-            break;
-        }
+        serviceResult = this.prefs.service.update({ id: this.prefs.editId, name: this.name });
       } else {
-        switch (this.prefs.mode) {
-          case "manufacturer":
-            serviceResult = this.manufacturerService.add({ name: this.name });
-            break;
-          case "caliber":
-            serviceResult = this.caliberService.add({ name: this.name });
-            break;
-          case "type":
-            serviceResult = this.typeService.add({ name: this.name });
-            break;
+        serviceResult = this.prefs.service.add({ name: this.name });
+      }
+      serviceResult.subscribe(
+        () => {
+          this.dialogRef.close({ updateList: true });
         }
-      }
-      if (serviceResult) {
-        serviceResult.subscribe(
-          () => {
-            this.dialogRef.close({ updateList: true });
-          }
-        )
-      }
+      )
     }
   }
 }

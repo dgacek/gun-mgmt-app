@@ -61,7 +61,7 @@ export class AddEditModelDialogComponent implements OnInit {
   }
 
   openDeleteManufacturerDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {serviceMethodCallback: this.manufacturerService.delete.bind(this.manufacturerService), id: this.manufacturerId}});
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {service: this.manufacturerService, id: this.manufacturerId}});
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {

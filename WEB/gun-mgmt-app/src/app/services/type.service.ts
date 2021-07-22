@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Type } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BasicCRUDService } from '../types/BasicCRUDService';
@@ -13,6 +13,10 @@ export class TypeService implements BasicCRUDService {
   private apiEndpointUrl = `${environment.apiUrl}/dictionary/types`;
 
   constructor(private http: HttpClient) { }
+
+  whoAmI(): string {
+    return "type";
+  }
 
   public getAll() :Observable<DictionaryData[]> {
     return this.http.get<DictionaryData[]>(`${this.apiEndpointUrl}`);

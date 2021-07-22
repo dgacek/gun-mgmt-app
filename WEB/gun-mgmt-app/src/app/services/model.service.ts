@@ -14,6 +14,10 @@ export class ModelService implements BasicCRUDService {
 
   constructor(private http: HttpClient) { }
 
+  whoAmI(): string {
+    return "model";
+  }
+
   public getAll() :Observable<Model[]> {
     return this.http.get<Model[]>(`${this.apiEndpointUrl}`);
   }
@@ -23,14 +27,14 @@ export class ModelService implements BasicCRUDService {
   }
 
   public add(inputObject: ModelInput) :Observable<Model> {
-    return this.http.post<Model>(`${this.apiEndpointUrl}/add`, inputObject);
+    return this.http.post<Model>(`${this.apiEndpointUrl}`, inputObject);
   }
 
   public update(updatedObject: Model) :Observable<Model> {
-    return this.http.put<Model>(`${this.apiEndpointUrl}/update`, updatedObject);
+    return this.http.put<Model>(`${this.apiEndpointUrl}`, updatedObject);
   }
 
   public delete(id: number) :Observable<void> {
-    return this.http.delete<void>(`${this.apiEndpointUrl}/delete/${id}`);
+    return this.http.delete<void>(`${this.apiEndpointUrl}/${id}`);
   }
 }

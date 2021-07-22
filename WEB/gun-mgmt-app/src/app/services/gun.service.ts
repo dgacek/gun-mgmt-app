@@ -14,6 +14,10 @@ export class GunService implements BasicCRUDService {
 
   constructor(private http: HttpClient) { }
 
+  public whoAmI(): string {
+    return "gun";
+  }
+
   public getAll() :Observable<Gun[]> {
     return this.http.get<Gun[]>(`${this.apiEndpointUrl}`);
   }
@@ -23,14 +27,14 @@ export class GunService implements BasicCRUDService {
   }
 
   public add(inputObject: GunInput) :Observable<Gun> {
-    return this.http.post<Gun>(`${this.apiEndpointUrl}/add`, inputObject);
+    return this.http.post<Gun>(`${this.apiEndpointUrl}`, inputObject);
   }
 
   public update(updatedObject: Gun) :Observable<Gun> {
-    return this.http.put<Gun>(`${this.apiEndpointUrl}/update`, updatedObject);
+    return this.http.put<Gun>(`${this.apiEndpointUrl}`, updatedObject);
   }
 
   public delete(id: number) :Observable<void> {
-    return this.http.delete<void>(`${this.apiEndpointUrl}/delete/${id}`);
+    return this.http.delete<void>(`${this.apiEndpointUrl}/${id}`);
   }
 }
