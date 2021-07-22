@@ -20,4 +20,8 @@ public class DictionaryEntity {
     @Column(nullable = false, updatable = false)
     protected Long id;
     protected String name;
+
+    DictionaryEntity(String name) {
+        this.name = name;
+    }
 }
