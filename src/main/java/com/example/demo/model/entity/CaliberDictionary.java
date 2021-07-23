@@ -12,6 +12,9 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class CaliberDictionary extends DictionaryEntity {
+    /**
+     * Used by Reflection in DictionaryService
+     */
     public CaliberDictionary(String name) {
         this.name = name;
     }

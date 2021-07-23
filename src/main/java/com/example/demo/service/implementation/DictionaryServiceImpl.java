@@ -21,7 +21,11 @@ public class DictionaryServiceImpl implements DictionaryService {
     private final DictionaryDataMapper dictionaryDataMapper;
 
     public DictionaryData addDictionary(Class<? extends DictionaryEntity> type, DictionaryDataInput dictionaryDataInput) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return dictionaryDataMapper.toDictionaryData(dictionaryRepo.save(type.getDeclaredConstructor(String.class).newInstance(dictionaryDataInput.getName())));
+        return dictionaryDataMapper
+                .toDictionaryData(dictionaryRepo
+                        .save(type
+                                .getDeclaredConstructor(String.class)
+                                .newInstance(dictionaryDataInput.getName())));
     }
 
     public List<DictionaryData> findAllDictionaries(Class<? extends DictionaryEntity> type) {

@@ -25,14 +25,18 @@ public class UserServiceImpl implements UserService {
     public User addUser(UserInput userInput) {
         RoleEntity roleEntity = roleRepo.findById(userInput.getRoleId())
                 .orElseThrow(() -> new IdNotFoundException("Role of id:"+userInput.getRoleId()+" could not be found in the database"));
-        return userMapper.toUser(userRepo.save(new UserEntity(
-                null,
-                roleEntity,
-                userInput.getEmail(),
-                userInput.getPhone(),
-                userInput.getUsername(),
-                userInput.getPassword()
-        )));
+        return userMapper
+                .toUser(userRepo
+                        .save(UserEntity
+                                .builder()
+                                .roleEntity(roleEntity)
+                                .email(userInput.getEmail())
+                                .phone(userInput.getPhone())
+                                .username(userInput.getUsername())
+                                .password(userInput.getPassword())
+                                .build()
+                        )
+                );
     }
 
     public List<User> findAllUsers() {
@@ -46,6 +50,7 @@ public class UserServiceImpl implements UserService {
         // checking if the user-provided role id is valid
         RoleEntity roleEntity = roleRepo.findById(userInput.getRoleId())
                 .orElseThrow(() -> new IdNotFoundException("Role of id:"+userInput.getRoleId()+" could not be found in the database"));
+        //have to use setters because builder doesnt work
         userEntity.setRoleEntity(roleEntity);
         userEntity.setUsername(userInput.getUsername());
         userEntity.setEmail(userInput.getEmail());

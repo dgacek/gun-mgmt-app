@@ -25,7 +25,15 @@ public class ModelServiceImpl implements ModelService {
     public Model addModel(ModelInput modelInput) {
         var manufacturerDictionary = (ManufacturerDictionary) dictionaryRepo.findById(modelInput.getManufacturerId())
                 .orElseThrow(() -> new IdNotFoundException("Manufacture of id:"+modelInput.getManufacturerId()+" could not be found in the database"));
-        return modelMapper2.toModel(modelRepo.save(new ModelEntity(null, manufacturerDictionary, modelInput.getName())));
+        return modelMapper2
+                .toModel(modelRepo
+                        .save(ModelEntity
+                                .builder()
+                                .manufacturer(manufacturerDictionary)
+                                .name(modelInput.getName())
+                                .build()
+                        )
+                );
     }
 
     public List<Model> findAllModels() {

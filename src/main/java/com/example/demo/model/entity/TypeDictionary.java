@@ -12,6 +12,9 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class TypeDictionary extends DictionaryEntity {
+    /**
+     * Used by Reflection in DictionaryService
+     */
     public TypeDictionary(String name) {
         this.name = name;
     }
