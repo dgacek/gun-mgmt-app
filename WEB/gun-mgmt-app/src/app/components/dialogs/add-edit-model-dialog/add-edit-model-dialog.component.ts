@@ -47,9 +47,9 @@ export class AddEditModelDialogComponent implements OnInit {
   openAddEditManufacturerDialog(prefs: {edit: boolean}): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "manufacturer", editId: this.manufacturerId}});
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {service: this.manufacturerService, editId: this.manufacturerId}});
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {mode: "manufacturer"}});
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {service: this.manufacturerService}});
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
