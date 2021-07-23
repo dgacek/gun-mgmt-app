@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.dto.DictionaryData;
 import com.example.demo.model.dto.DictionaryDataInput;
 import com.example.demo.model.entity.CaliberDictionary;
+import com.example.demo.model.entity.DictionaryEntity;
 import com.example.demo.model.entity.ManufacturerDictionary;
 import com.example.demo.model.entity.TypeDictionary;
 import com.example.demo.service.DictionaryService;
@@ -19,45 +20,46 @@ import java.util.List;
 public class DictionaryController {
     private final DictionaryService dictionaryService;
 
-    @GetMapping("/{type}")
-    public ResponseEntity<List<DictionaryData>> getAllDictionaries(@PathVariable String type) {
+    private Class<? extends DictionaryEntity> parseType(String type) {
         switch (type) {
             case "calibers":
-                return new ResponseEntity<>(dictionaryService.findAllDictionaries(CaliberDictionary.class), HttpStatus.OK);
+                return CaliberDictionary.class;
             case "manufacturers":
-                return new ResponseEntity<>(dictionaryService.findAllDictionaries(ManufacturerDictionary.class), HttpStatus.OK);
+                return ManufacturerDictionary.class;
             case "types":
-                return new ResponseEntity<>(dictionaryService.findAllDictionaries(TypeDictionary.class), HttpStatus.OK);
-            default: return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                return TypeDictionary.class;
+            default:
+                return null;
         }
+    }
+
+    private String parseTypeString(String type) {
+        switch (type) {
+            case "calibers":
+                return "caliber";
+            case "manufacturers":
+                return "manufacturer";
+            case "types":
+                return "type";
+            default:
+                return null;
+        }
+    }
+
+    @GetMapping("/{type}")
+    public ResponseEntity<List<DictionaryData>> getAllDictionaries(@PathVariable String type) {
+        return new ResponseEntity<>(dictionaryService.findAllDictionaries(parseType(type)), HttpStatus.OK);
     }
 
     @GetMapping("/{type}/{id}")
     public ResponseEntity<DictionaryData> getDictionaryById(@PathVariable String type, @PathVariable Long id) {
-        switch (type) {
-            case "calibers":
-                return new ResponseEntity<>(dictionaryService.findDictionaryById("caliber", id), HttpStatus.OK);
-            case "manufacturers":
-                return new ResponseEntity<>(dictionaryService.findDictionaryById("manufacturer", id), HttpStatus.OK);
-            case "types":
-                return new ResponseEntity<>(dictionaryService.findDictionaryById("type", id), HttpStatus.OK);
-            default: return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(dictionaryService.findDictionaryById(parseTypeString(type), id), HttpStatus.OK);
     }
 
     @PostMapping("/{type}")
     public ResponseEntity<DictionaryData> addDictionary(@PathVariable String type, @RequestBody DictionaryDataInput dictionaryDataInput) {
         try {
-            switch (type) {
-                case "calibers":
-                    return new ResponseEntity<>(dictionaryService.addDictionary(CaliberDictionary.class, dictionaryDataInput), HttpStatus.OK);
-                case "manufacturers":
-                    return new ResponseEntity<>(dictionaryService.addDictionary(ManufacturerDictionary.class, dictionaryDataInput), HttpStatus.OK);
-                case "types":
-                    return new ResponseEntity<>(dictionaryService.addDictionary(TypeDictionary.class, dictionaryDataInput), HttpStatus.OK);
-                default:
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
+            return new ResponseEntity<>(dictionaryService.addDictionary(parseType(type), dictionaryDataInput), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -66,32 +68,11 @@ public class DictionaryController {
 
     @PutMapping("/{type}")
     public ResponseEntity<DictionaryData> updateDictionary(@PathVariable String type, @RequestBody DictionaryData dictionaryData) {
-        switch (type) {
-            case "calibers":
-                return new ResponseEntity<>(dictionaryService.updateDictionary("caliber", dictionaryData), HttpStatus.OK);
-            case "manufacturers":
-                return new ResponseEntity<>(dictionaryService.updateDictionary("manufacturer", dictionaryData), HttpStatus.OK);
-            case "types":
-                return new ResponseEntity<>(dictionaryService.updateDictionary("type", dictionaryData), HttpStatus.OK);
-            default:
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(dictionaryService.updateDictionary(parseTypeString(type), dictionaryData), HttpStatus.OK);
     }
 
     @DeleteMapping("/{type}/{id}")
     public void deleteDictionary(@PathVariable String type, @PathVariable Long id) {
-        switch (type) {
-            case "calibers":
-                dictionaryService.deleteDictionary("caliber", id);
-                break;
-            case "manufacturers":
-                dictionaryService.deleteDictionary("manufacturer", id);
-                break;
-            case "types":
-                dictionaryService.deleteDictionary("type", id);
-                break;
-            default:
-                break;
-        }
+        dictionaryService.deleteDictionary(parseTypeString(type), id);
     }
 }
