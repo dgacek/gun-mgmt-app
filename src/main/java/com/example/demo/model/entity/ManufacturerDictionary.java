@@ -12,6 +12,9 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class ManufacturerDictionary extends DictionaryEntity {
+    /**
+     * Used by Reflection in DictionaryService
+     */
     public ManufacturerDictionary(String name) {
         this.name = name;
     }

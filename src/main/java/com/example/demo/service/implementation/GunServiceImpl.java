@@ -34,13 +34,16 @@ public class GunServiceImpl implements GunService {
         TypeDictionary typeDictionary = (TypeDictionary) dictionaryRepo.findById(gunInput.getTypeId())
                 .orElseThrow(() -> new IdNotFoundException("Type of id:"+gunInput.getTypeId()+" could not be found in the database"));
 
-        return gunMapper.toGun(gunRepo.save(new GunEntity(
-                null,
-                gunInput.getProductionYear(),
-                modelEntity,
-                caliberDictionary,
-                typeDictionary
-        )));
+        return gunMapper
+                .toGun(gunRepo
+                        .save(GunEntity
+                                .builder()
+                                .model(modelEntity)
+                                .caliber(caliberDictionary)
+                                .type(typeDictionary)
+                                .productionYear(gunInput.getProductionYear())
+                                .build()
+        ));
     }
 
     public List<Gun> findAllGuns() {
@@ -57,10 +60,10 @@ public class GunServiceImpl implements GunService {
                 .orElseThrow(() -> new IdNotFoundException("Caliber of id:"+gun.getCaliber().getId()+" could not be found in the database"));
         TypeDictionary typeDictionary = (TypeDictionary) dictionaryRepo.findById(gun.getType().getId())
                 .orElseThrow(() -> new IdNotFoundException("Type of id:"+gun.getType().getId()+" could not be found in the database"));
-        gunEntity.setProductionYear(gun.getProductionYear());
         gunEntity.setModel(modelEntity);
         gunEntity.setCaliber(caliberDictionary);
         gunEntity.setType(typeDictionary);
+        gunEntity.setProductionYear(gun.getProductionYear());
         return gunMapper.toGun(gunEntity);
     }
 

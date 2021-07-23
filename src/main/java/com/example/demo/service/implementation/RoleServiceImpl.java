@@ -20,7 +20,14 @@ public class RoleServiceImpl implements RoleService {
     private final RoleMapper roleMapper;
 
     public Role addRole(RoleInput roleInput) {
-        return roleMapper.toRole(roleRepo.save(new RoleEntity(null, roleInput.getName())));
+        return roleMapper
+                .toRole(roleRepo
+                        .save(RoleEntity
+                                .builder()
+                                .name(roleInput.getName())
+                                .build()
+                        )
+                );
     }
 
     public List<Role> findAllRoles() {

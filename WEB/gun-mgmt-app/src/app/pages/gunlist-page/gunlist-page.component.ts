@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditGunDialogComponent } from 'src/app/components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
 import { DeleteGenericDialogComponent } from 'src/app/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
-import { Gun } from 'src/app/models/Gun';
+import { Gun } from 'src/app/types/Gun';
 import { GunService } from 'src/app/services/gun.service';
 
 @Component({
@@ -38,7 +38,7 @@ export class GunlistPageComponent {
   }
 
   openDeleteGunDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {serviceMethodCallback: this.gunService.deleteGun.bind(this.gunService), id: this.selectedItem ? this.selectedItem.id : null}});
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {service: this.gunService, id: this.selectedItem ? this.selectedItem.id : null}});
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {

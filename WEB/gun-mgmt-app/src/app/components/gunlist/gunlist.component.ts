@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChange, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Gun } from 'src/app/models/Gun';
+import { Gun } from 'src/app/types/Gun';
 import { GunService } from 'src/app/services/gun.service';
 
 @Component({
@@ -32,7 +32,7 @@ export class GunlistComponent implements OnInit {
   }
 
   updateList(): void {
-    this.gunService.getAllGuns().subscribe(
+    this.gunService.getAll().subscribe(
       (response: Gun[]) => {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sortingDataAccessor = (item, property) => {

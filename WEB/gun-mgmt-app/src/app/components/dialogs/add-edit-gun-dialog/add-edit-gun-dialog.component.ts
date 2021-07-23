@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DictionaryData } from 'src/app/models/DictionaryData';
-import { Gun } from 'src/app/models/Gun';
-import { Model } from 'src/app/models/Model';
+import { DictionaryData } from 'src/app/types/DictionaryData';
+import { Gun } from 'src/app/types/Gun';
+import { Model } from 'src/app/types/Model';
 import { CaliberService } from 'src/app/services/caliber.service';
 import { GunService } from 'src/app/services/gun.service';
 import { ModelService } from 'src/app/services/model.service';
@@ -39,7 +39,7 @@ export class AddEditGunDialogComponent implements OnInit {
     this.updateCaliberList();
     this.updateTypeList();
     if (this.editId) {
-      this.gunService.getGunById(this.editId).subscribe(
+      this.gunService.getById(this.editId).subscribe(
         (response: Gun) => {
           this.modelId = response.model.id;
           this.caliberId = response.caliber.id;
@@ -51,7 +51,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   updateModelList(): void {
-    this.modelService.getAllModels().subscribe(
+    this.modelService.getAll().subscribe(
       (response: Model[]) => {
         this.models = response;
       }
@@ -59,7 +59,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   updateCaliberList(): void {
-    this.caliberService.getAllCalibers().subscribe(
+    this.caliberService.getAll().subscribe(
       (response: DictionaryData[]) => {
         this.calibers = response;
       }
@@ -67,7 +67,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   updateTypeList(): void {
-    this.typeService.getAllTypes().subscribe(
+    this.typeService.getAll().subscribe(
       (response: DictionaryData[]) => {
         this.types = response;
       }
@@ -93,9 +93,9 @@ export class AddEditGunDialogComponent implements OnInit {
   openAddEditCaliberDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "caliber", editId: this.editId } });
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService, editId: this.caliberId } });
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "caliber" } });
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -109,9 +109,9 @@ export class AddEditGunDialogComponent implements OnInit {
   openAddEditTypeDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "type", editId: this.editId } });
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService, editId: this.typeId } });
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { mode: "type" } });
+      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -123,7 +123,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   openDeleteModelDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.modelService.deleteModel.bind(this.modelService), id: this.modelId } });
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.modelService, id: this.modelId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -134,7 +134,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   openDeleteCaliberDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.caliberService.deleteCaliber.bind(this.caliberService), id: this.caliberId } });
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.caliberService, id: this.caliberId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -145,7 +145,7 @@ export class AddEditGunDialogComponent implements OnInit {
   }
 
   openDeleteTypeDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { serviceMethodCallback: this.typeService.deleteType.bind(this.typeService), id: this.typeId } });
+    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.typeService, id: this.typeId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -159,13 +159,13 @@ export class AddEditGunDialogComponent implements OnInit {
     if (this.modelId && this.caliberId && this.typeId && this.productionYear) {
       if (this.editId) {
         console.log(this.editId);
-        this.gunService.updateGun({ id: this.editId, model: { id: this.modelId }, caliber: { id: this.caliberId }, type: { id: this.typeId }, productionYear: this.productionYear } as Gun).subscribe(
+        this.gunService.update({ id: this.editId, model: { id: this.modelId }, caliber: { id: this.caliberId }, type: { id: this.typeId }, productionYear: this.productionYear } as Gun).subscribe(
           () => {
             this.dialogRef.close({ updateList: true })
           }
         )
       } else {
-        this.gunService.addGun({ modelId: this.modelId, caliberId: this.caliberId, typeId: this.typeId, productionYear: this.productionYear }).subscribe(
+        this.gunService.add({ modelId: this.modelId, caliberId: this.caliberId, typeId: this.typeId, productionYear: this.productionYear }).subscribe(
           () => {
             this.dialogRef.close({ updateList: true });
           }

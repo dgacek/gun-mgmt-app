@@ -2,34 +2,39 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Model } from '../models/Model';
-import { ModelInput } from '../models/ModelInput';
+import { BasicCRUDService } from '../types/BasicCRUDService';
+import { Model } from '../types/Model';
+import { ModelInput } from '../types/ModelInput';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ModelService {
+export class ModelService implements BasicCRUDService {
   private apiEndpointUrl = `${environment.apiUrl}/models`
 
   constructor(private http: HttpClient) { }
 
-  public getAllModels() :Observable<Model[]> {
+  whoAmI(): string {
+    return "model";
+  }
+
+  public getAll() :Observable<Model[]> {
     return this.http.get<Model[]>(`${this.apiEndpointUrl}`);
   }
 
-  public getModelById(id: number) :Observable<Model> {
+  public getById(id: number) :Observable<Model> {
     return this.http.get<Model>(`${this.apiEndpointUrl}/${id}`);
   }
 
-  public addModel(modelInput: ModelInput) :Observable<Model> {
-    return this.http.post<Model>(`${this.apiEndpointUrl}/add`, modelInput);
+  public add(inputObject: ModelInput) :Observable<Model> {
+    return this.http.post<Model>(`${this.apiEndpointUrl}`, inputObject);
   }
 
-  public updateModel(model: Model) :Observable<Model> {
-    return this.http.put<Model>(`${this.apiEndpointUrl}/update`, model);
+  public update(updatedObject: Model) :Observable<Model> {
+    return this.http.put<Model>(`${this.apiEndpointUrl}`, updatedObject);
   }
 
-  public deleteModel(id: number) :Observable<void> {
-    return this.http.delete<void>(`${this.apiEndpointUrl}/delete/${id}`);
+  public delete(id: number) :Observable<void> {
+    return this.http.delete<void>(`${this.apiEndpointUrl}/${id}`);
   }
 }

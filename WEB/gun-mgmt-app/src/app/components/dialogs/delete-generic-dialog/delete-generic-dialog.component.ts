@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { BasicCRUDService } from 'src/app/types/BasicCRUDService';
 
 @Component({
   selector: 'app-delete-generic-dialog',
@@ -11,11 +12,11 @@ export class DeleteGenericDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DeleteGenericDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public prefs: { serviceMethodCallback: (id: number) => Observable<void>, id: number }
+    @Inject(MAT_DIALOG_DATA) public prefs: { service: BasicCRUDService, id: number }
   ) { }
 
   doDelete(): void {
-    this.prefs.serviceMethodCallback(this.prefs.id).subscribe(
+    this.prefs.service.delete(this.prefs.id).subscribe(
       () => {
         this.dialogRef.close({ updateList: true })
       }

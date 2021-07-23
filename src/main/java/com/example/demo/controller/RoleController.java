@@ -26,17 +26,17 @@ public class RoleController {
         return new ResponseEntity<>(roleService.findRoleById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Role> addRole(@RequestBody RoleInput roleInput) {
         return new ResponseEntity<>(roleService.addRole(roleInput), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<Role> updateRole(@RequestBody Role role) {
         return new ResponseEntity<>(roleService.updateRole(role), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteRole(@PathVariable Long id) {
         roleService.deleteRole(id);
     }
