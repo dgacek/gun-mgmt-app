@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BasicCRUDService } from '../../types/BasicCRUDService';
-import { DictionaryData } from '../../types/DictionaryData';
-import { DictionaryDataInput } from '../../types/DictionaryDataInput';
+import { BasicCRUDService } from '../../shared/types/BasicCRUDService';
+import { DictionaryData } from '../../shared/types/DictionaryData';
+import { DictionaryDataInput } from '../../shared/types/DictionaryDataInput';
 
 @Injectable({
   providedIn: 'root'

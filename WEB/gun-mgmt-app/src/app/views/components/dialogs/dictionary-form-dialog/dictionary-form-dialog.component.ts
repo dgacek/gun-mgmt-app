@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { BasicCRUDService } from 'src/app/types/BasicCRUDService';
-import { DictionaryData } from 'src/app/types/DictionaryData';
+import { BasicCRUDService } from 'src/app/shared/types/BasicCRUDService';
+import { DictionaryData } from 'src/app/shared/types/DictionaryData';
 
 @Component({
   selector: 'app-dictionary-form-dialog',

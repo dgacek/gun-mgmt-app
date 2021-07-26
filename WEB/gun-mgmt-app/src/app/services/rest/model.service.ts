@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BasicCRUDService } from '../../types/BasicCRUDService';
-import { Model } from '../../types/Model';
-import { ModelInput } from '../../types/ModelInput';
+import { BasicCRUDService } from '../../shared/types/BasicCRUDService';
+import { Model } from '../../shared/types/Model';
+import { ModelInput } from '../../shared/types/ModelInput';
 
 @Injectable({
   providedIn: 'root'

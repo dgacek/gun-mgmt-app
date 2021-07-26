@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GunFormDialogComponent } from 'src/app/components/dialogs/gun-form-dialog/gun-form-dialog.component';
-import { DeleteGenericDialogComponent } from 'src/app/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
-import { Gun } from 'src/app/types/Gun';
+import { GunFormDialogComponent } from 'src/app/views/components/dialogs/gun-form-dialog/gun-form-dialog.component';
+import { DeleteGenericDialogComponent } from 'src/app/views/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
+import { Gun } from 'src/app/shared/types/Gun';
 import { GunService } from 'src/app/services/rest/gun.service';
 
 @Component({

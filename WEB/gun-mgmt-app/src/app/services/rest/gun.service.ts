@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BasicCRUDService } from '../../types/BasicCRUDService';
-import { Gun } from '../../types/Gun';
-import { GunInput } from '../../types/GunInput';
+import { BasicCRUDService } from '../../shared/types/BasicCRUDService';
+import { Gun } from '../../shared/types/Gun';
+import { GunInput } from '../../shared/types/GunInput';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BasicCRUDService } from 'src/app/types/BasicCRUDService';
+import { BasicCRUDService } from 'src/app/shared/types/BasicCRUDService';
 
 @Component({
   selector: 'app-delete-generic-dialog',

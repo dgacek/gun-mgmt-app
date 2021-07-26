@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChange, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Gun } from 'src/app/types/Gun';
+import { Gun } from 'src/app/shared/types/Gun';
 import { GunService } from 'src/app/services/rest/gun.service';
 
 @Component({
