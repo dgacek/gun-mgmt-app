@@ -117,82 +117,88 @@ export class GunFormDialogComponent implements OnInit {
   openModelFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this._dialog.open(ModelFormDialogComponent, { data: this.modelId });
+      dialogRef = this._openEditModelDialog();
     } else {
-      dialogRef = this._dialog.open(ModelFormDialogComponent);
+      dialogRef = this._openAddModelDialog();
     }
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateModelList();
-        }
-      }
-    )
+    dialogRef.afterClosed().subscribe(this._handleModelDialogClose.bind(this));
+  }
+
+  openDeleteModelDialog(): void {
+    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._modelService, id: this.modelId } });
+    dialogRef.afterClosed().subscribe(this._handleModelDialogClose.bind(this));
+  }
+
+  private _openEditModelDialog(): MatDialogRef<any> {
+    return this._dialog.open(ModelFormDialogComponent, { data: this.modelId });
+  }
+
+  private _openAddModelDialog(): MatDialogRef<any> {
+    return this._dialog.open(ModelFormDialogComponent);
+  }
+
+  private _handleModelDialogClose(response: any): void {
+    if (response && response.updateList) {
+      this.updateModelList();
+    }
   }
 
   openCaliberFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService, editId: this.caliberId } });
+      dialogRef = this._openEditCaliberDialog();
     } else {
-      dialogRef = this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService } });
+      dialogRef = this._openAddCaliberDialog();
     }
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateCaliberList();
-        }
-      }
-    )
+    dialogRef.afterClosed().subscribe(this._handleCaliberDialogClose.bind(this));
+  }
+
+  openDeleteCaliberDialog(): void {
+    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._caliberService, id: this.caliberId } });
+    dialogRef.afterClosed().subscribe(this._handleCaliberDialogClose.bind(this));
+  }
+
+  private _openEditCaliberDialog(): MatDialogRef<any> {
+    return this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService, editId: this.caliberId } });
+  }
+
+  private _openAddCaliberDialog(): MatDialogRef<any> {
+    return this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService } });
+  }
+
+  private _handleCaliberDialogClose(response: any): void {
+    if (response && response.updateList) {
+      this.updateCaliberList();
+    }
   }
 
   openTypeFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService, editId: this.typeId } });
+      dialogRef = this._openEditTypeDialog();
     } else {
-      dialogRef = this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService } });
+      dialogRef = this._openAddTypeDialog();
     }
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateTypeList();
-        }
-      }
-    )
-  }
-
-  openDeleteModelDialog(): void {
-    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._modelService, id: this.modelId } });
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateModelList();
-        }
-      }
-    )
-  }
-
-  openDeleteCaliberDialog(): void {
-    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._caliberService, id: this.caliberId } });
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateCaliberList();
-        }
-      }
-    )
+    dialogRef.afterClosed().subscribe(this._handleTypeDialogClose.bind(this));
   }
 
   openDeleteTypeDialog(): void {
     const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._typeService, id: this.typeId } });
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateTypeList();
-        }
-      }
-    )
+    dialogRef.afterClosed().subscribe(this._handleTypeDialogClose.bind(this));
+  }
+
+  private _openEditTypeDialog(): MatDialogRef<any> {
+    return this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._typeService, editId: this.typeId } });
+  }
+
+  private _openAddTypeDialog(): MatDialogRef<any> {
+    return this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._typeService } });
+  }
+
+  private _handleTypeDialogClose(response: any): void {
+    if (response && response.updateList) {
+      this.updateTypeList();
+    }
   }
 
   processForm(): void {
@@ -205,7 +211,7 @@ export class GunFormDialogComponent implements OnInit {
       }
       serviceResult.subscribe(
         () => {
-          this._dialogRef.close({updateList: true});
+          this._dialogRef.close({ updateList: true });
         }
       )
     }
@@ -228,15 +234,15 @@ export class GunFormDialogComponent implements OnInit {
   }
 
   private _doAdd(): Observable<Gun> {
-    return this._gunService.add({ 
-      modelId: this.modelId!, 
-      caliberId: this.caliberId!, 
-      typeId: this.typeId!, 
-      productionYear: this.productionYear! 
+    return this._gunService.add({
+      modelId: this.modelId!,
+      caliberId: this.caliberId!,
+      typeId: this.typeId!,
+      productionYear: this.productionYear!
     })
   }
 
   closeDialog(updateList: boolean): void {
-    this._dialogRef.close({updateList: updateList});
+    this._dialogRef.close({ updateList: updateList });
   }
 }

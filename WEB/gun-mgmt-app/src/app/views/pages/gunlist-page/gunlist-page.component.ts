@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GunFormDialogComponent } from 'src/app/views/components/dialogs/gun-form-dialog/gun-form-dialog.component';
 import { DeleteGenericDialogComponent } from 'src/app/views/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
 import { Gun } from 'src/app/shared/types/Gun';
@@ -37,28 +37,30 @@ export class GunlistPageComponent {
   openGunFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this._dialog.open(GunFormDialogComponent, { data: this.selectedItem?.id });
+      dialogRef = this._openEditGunDialog();
     } else {
-      dialogRef = this._dialog.open(GunFormDialogComponent);
+      dialogRef = this._openAddGunDialog();
     }
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateView();
-        }
-      }
-    )
+    dialogRef.afterClosed().subscribe(this._handleGunDialogClose.bind(this));
   }
 
   openDeleteGunDialog(): void {
     const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._gunService, id: this.selectedItem?.id } });
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateView();
-        }
-      }
-    )
+    dialogRef.afterClosed().subscribe(this._handleGunDialogClose.bind(this))
+  }
+
+  private _openEditGunDialog(): MatDialogRef<any> {
+    return this._dialog.open(GunFormDialogComponent, { data: this.selectedItem?.id });
+  }
+
+  private _openAddGunDialog(): MatDialogRef<any> {
+    return this._dialog.open(GunFormDialogComponent);
+  }
+
+  private _handleGunDialogClose(response: any): void {
+    if (response && response.updateList) {
+      this.updateView();
+    }
   }
 
   /**

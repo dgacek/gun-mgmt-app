@@ -20,7 +20,7 @@ export class GunlistComponent implements OnInit {
     this._dataSource = value;
   }
 
-  private _selectedItem?: Gun | undefined = undefined;
+  private _selectedItem?: Gun = undefined;
   public get selectedItem(): Gun | undefined {
     return this._selectedItem;
   }

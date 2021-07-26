@@ -62,31 +62,33 @@ export class ModelFormDialogComponent implements OnInit {
     )
   }
 
-  openManufacturerFormDialog(prefs: {edit: boolean}): void {
+  openManufacturerFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this._dialog.open(DictionaryFormDialogComponent, {data: {service: this._manufacturerService, editId: this.manufacturerId}});
+      dialogRef = this._openEditManufacturerDialog();
     } else {
-      dialogRef = this._dialog.open(DictionaryFormDialogComponent, {data: {service: this._manufacturerService}});
+      dialogRef = this._openAddManufacturerDialog();
     }
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateManufacturerList();
-        }
-      }
-    )
+    dialogRef.afterClosed().subscribe(this._handleManufacturerDialogClose.bind(this));
   }
 
   openDeleteManufacturerDialog(): void {
-    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, {data: {service: this._manufacturerService, id: this.manufacturerId}});
-    dialogRef.afterClosed().subscribe(
-      (response) => {
-        if (response && response.updateList) {
-          this.updateManufacturerList();
-        }
-      }
-    )
+    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._manufacturerService, id: this.manufacturerId } });
+    dialogRef.afterClosed().subscribe(this._handleManufacturerDialogClose.bind(this));
+  }
+
+  private _openEditManufacturerDialog(): MatDialogRef<any> {
+    return this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._manufacturerService, editId: this.manufacturerId } });
+  }
+
+  private _openAddManufacturerDialog(): MatDialogRef<any> {
+    return this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._manufacturerService } });
+  }
+
+  private _handleManufacturerDialogClose(response: any): void {
+    if (response && response.updateList) {
+      this.updateManufacturerList();
+    }
   }
 
   processForm(): void {
