@@ -20,7 +20,7 @@ import java.util.List;
 public class DictionaryController {
     private final DictionaryService dictionaryService;
 
-    private Class<? extends DictionaryEntity> parseType(String type) {
+    private Class<? extends DictionaryEntity> parseType(String type) throws ClassNotFoundException {
         switch (type) {
             case "calibers":
                 return CaliberDictionary.class;
@@ -29,11 +29,12 @@ public class DictionaryController {
             case "types":
                 return TypeDictionary.class;
             default:
-                return null;
+                throw new ClassNotFoundException("Incorrect dictionary type identifier");
         }
     }
 
-    private String parseTypeString(String type) {
+    // Required in the cases where JPA doesn't work as it should
+    private String parseTypeString(String type) throws ClassNotFoundException {
         switch (type) {
             case "calibers":
                 return "caliber";
@@ -42,17 +43,17 @@ public class DictionaryController {
             case "types":
                 return "type";
             default:
-                return null;
+                throw new ClassNotFoundException("Incorrect dictionary type identifier");
         }
     }
 
     @GetMapping("/{type}")
-    public ResponseEntity<List<DictionaryData>> getAllDictionaries(@PathVariable String type) {
+    public ResponseEntity<List<DictionaryData>> getAllDictionaries(@PathVariable String type) throws ClassNotFoundException {
         return new ResponseEntity<>(dictionaryService.findAllDictionaries(parseType(type)), HttpStatus.OK);
     }
 
     @GetMapping("/{type}/{id}")
-    public ResponseEntity<DictionaryData> getDictionaryById(@PathVariable String type, @PathVariable Long id) {
+    public ResponseEntity<DictionaryData> getDictionaryById(@PathVariable String type, @PathVariable Long id) throws ClassNotFoundException {
         return new ResponseEntity<>(dictionaryService.findDictionaryById(parseTypeString(type), id), HttpStatus.OK);
     }
 
@@ -67,12 +68,12 @@ public class DictionaryController {
     }
 
     @PutMapping("/{type}")
-    public ResponseEntity<DictionaryData> updateDictionary(@PathVariable String type, @RequestBody DictionaryData dictionaryData) {
+    public ResponseEntity<DictionaryData> updateDictionary(@PathVariable String type, @RequestBody DictionaryData dictionaryData) throws ClassNotFoundException {
         return new ResponseEntity<>(dictionaryService.updateDictionary(parseTypeString(type), dictionaryData), HttpStatus.OK);
     }
 
     @DeleteMapping("/{type}/{id}")
-    public void deleteDictionary(@PathVariable String type, @PathVariable Long id) {
+    public void deleteDictionary(@PathVariable String type, @PathVariable Long id) throws ClassNotFoundException {
         dictionaryService.deleteDictionary(parseTypeString(type), id);
     }
 }
