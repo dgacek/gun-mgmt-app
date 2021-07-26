@@ -1,0 +1,12 @@
+<h1 mat-dialog-title *ngIf="prefs.editId">Edit {{prefs.service.whoAmI()}}</h1>
+<h1 mat-dialog-title *ngIf="!prefs.editId">Add {{prefs.service.whoAmI()}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="!name" (click)="processForm()">Confirm</button>
+  <button mat-button (click)="closeDialog(false)">Cancel</button>
+</div>

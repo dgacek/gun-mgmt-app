@@ -5,27 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
 
-import { UserlistPageComponent } from './pages/userlist-page/userlist-page.component';
-import { GunlistPageComponent } from './pages/gunlist-page/gunlist-page.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { GunlistComponent } from './components/gunlist/gunlist.component';
-import { AddEditGunDialogComponent } from './components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
-import { AddEditModelDialogComponent } from './components/dialogs/add-edit-model-dialog/add-edit-model-dialog.component';
-import { AddEditDictionaryDialogComponent } from './components/dialogs/add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
-import { DeleteGenericDialogComponent } from './components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
+import { UserlistPageComponent } from './views/pages/userlist-page/userlist-page.component';
+import { GunlistPageComponent } from './views/pages/gunlist-page/gunlist-page.component';
+import { LoginPageComponent } from './views/pages/login-page/login-page.component';
+import { NavbarComponent } from './views/components/navbar/navbar.component';
+import { GunlistComponent } from './views/components/gunlist/gunlist.component';
+import { GunFormDialogComponent } from './views/components/dialogs/gun-form-dialog/gun-form-dialog.component';
+import { ModelFormDialogComponent } from './views/components/dialogs/model-form-dialog/model-form-dialog.component';
+import { DictionaryFormDialogComponent } from './views/components/dialogs/dictionary-form-dialog/dictionary-form-dialog.component';
+import { DeleteGenericDialogComponent } from './views/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
+import { MaterialModule } from './shared/modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -35,9 +26,9 @@ import { DeleteGenericDialogComponent } from './components/dialogs/delete-generi
     LoginPageComponent,
     NavbarComponent,
     GunlistComponent,
-    AddEditGunDialogComponent,
-    AddEditModelDialogComponent,
-    AddEditDictionaryDialogComponent,
+    GunFormDialogComponent,
+    ModelFormDialogComponent,
+    DictionaryFormDialogComponent,
     DeleteGenericDialogComponent
   ],
   imports: [
@@ -45,17 +36,8 @@ import { DeleteGenericDialogComponent } from './components/dialogs/delete-generi
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatTableModule,
-    MatSortModule,
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    FormsModule,
-    MatInputModule,
-    MatIconModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
