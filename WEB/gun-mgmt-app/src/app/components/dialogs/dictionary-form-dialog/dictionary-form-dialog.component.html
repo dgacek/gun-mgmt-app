@@ -7,6 +7,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [disabled]="!name" (click)="doAddOrEdit()">Confirm</button>
-  <button mat-button (click)="dialogRef.close({updateList: false})">Cancel</button>
+  <button mat-button [disabled]="!name" (click)="processForm()">Confirm</button>
+  <button mat-button (click)="closeDialog(false)">Cancel</button>
 </div>

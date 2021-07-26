@@ -10,16 +10,21 @@ import { BasicCRUDService } from 'src/app/types/BasicCRUDService';
 export class DeleteGenericDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteGenericDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public prefs: { service: BasicCRUDService, id: number }
+    private _dialogRef: MatDialogRef<DeleteGenericDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) readonly prefs: { service: BasicCRUDService, id: number }
   ) { }
+
 
   doDelete(): void {
     this.prefs.service.delete(this.prefs.id).subscribe(
       () => {
-        this.dialogRef.close({ updateList: true })
+        this._dialogRef.close({ updateList: true })
       }
     )
+  }
+
+  closeDialog(updateList: boolean): void {
+    this._dialogRef.close({ updateList: updateList });
   }
 
 }

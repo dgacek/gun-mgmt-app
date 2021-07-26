@@ -10,6 +10,7 @@ import { TypeService } from 'src/app/services/rest/type.service';
 import { DictionaryFormDialogComponent } from '../dictionary-form-dialog/dictionary-form-dialog.component';
 import { ModelFormDialogComponent } from '../model-form-dialog/model-form-dialog.component';
 import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-generic-dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-gun-form-dialog',
@@ -17,21 +18,60 @@ import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-ge
   styleUrls: ['./gun-form-dialog.component.scss']
 })
 export class GunFormDialogComponent implements OnInit {
-  models?: Model[] = undefined;
-  calibers?: DictionaryData[] = undefined;
-  types?: DictionaryData[] = undefined;
-  modelId?: number = undefined;
-  caliberId?: number = undefined;
-  typeId?: number = undefined;
-  productionYear?: number = undefined;
+  private _models!: Model[];
+  public get models(): Model[] {
+    return this._models;
+  }
 
-  constructor(private modelService: ModelService,
-    private caliberService: CaliberService,
-    private typeService: TypeService,
-    private gunService: GunService,
-    public dialogRef: MatDialogRef<GunFormDialogComponent>,
-    public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public editId?: number
+  private _calibers!: DictionaryData[];
+  public get calibers(): DictionaryData[] {
+    return this._calibers;
+  }
+
+  private _types!: DictionaryData[];
+  public get types(): DictionaryData[] {
+    return this._types;
+  }
+
+  private _modelId?: number = undefined;
+  public get modelId(): number | undefined {
+    return this._modelId;
+  }
+  public set modelId(value: number | undefined) {
+    this._modelId = value;
+  }
+
+  private _caliberId?: number = undefined;
+  public get caliberId(): number | undefined {
+    return this._caliberId;
+  }
+  public set caliberId(value: number | undefined) {
+    this._caliberId = value;
+  }
+
+  private _typeId?: number = undefined;
+  public get typeId(): number | undefined {
+    return this._typeId;
+  }
+  public set typeId(value: number | undefined) {
+    this._typeId = value;
+  }
+
+  private _productionYear?: number = undefined;
+  public get productionYear(): number | undefined {
+    return this._productionYear;
+  }
+  public set productionYear(value: number | undefined) {
+    this._productionYear = value;
+  }
+
+  constructor(private _modelService: ModelService,
+    private _caliberService: CaliberService,
+    private _typeService: TypeService,
+    private _gunService: GunService,
+    private _dialogRef: MatDialogRef<GunFormDialogComponent>,
+    private _dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) readonly editId?: number
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +79,7 @@ export class GunFormDialogComponent implements OnInit {
     this.updateCaliberList();
     this.updateTypeList();
     if (this.editId) {
-      this.gunService.getById(this.editId).subscribe(
+      this._gunService.getById(this.editId).subscribe(
         (response: Gun) => {
           this.modelId = response.model.id;
           this.caliberId = response.caliber.id;
@@ -51,35 +91,35 @@ export class GunFormDialogComponent implements OnInit {
   }
 
   updateModelList(): void {
-    this.modelService.getAll().subscribe(
+    this._modelService.getAll().subscribe(
       (response: Model[]) => {
-        this.models = response;
+        this._models = response;
       }
     )
   }
 
   updateCaliberList(): void {
-    this.caliberService.getAll().subscribe(
+    this._caliberService.getAll().subscribe(
       (response: DictionaryData[]) => {
-        this.calibers = response;
+        this._calibers = response;
       }
     )
   }
 
   updateTypeList(): void {
-    this.typeService.getAll().subscribe(
+    this._typeService.getAll().subscribe(
       (response: DictionaryData[]) => {
-        this.types = response;
+        this._types = response;
       }
     )
   }
 
-  openAddEditModelDialog(prefs: { edit: boolean }): void {
+  openModelFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(ModelFormDialogComponent, { data: this.modelId });
+      dialogRef = this._dialog.open(ModelFormDialogComponent, { data: this.modelId });
     } else {
-      dialogRef = this.dialog.open(ModelFormDialogComponent);
+      dialogRef = this._dialog.open(ModelFormDialogComponent);
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -90,12 +130,12 @@ export class GunFormDialogComponent implements OnInit {
     )
   }
 
-  openAddEditCaliberDialog(prefs: { edit: boolean }): void {
+  openCaliberFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(DictionaryFormDialogComponent, { data: { service: this.caliberService, editId: this.caliberId } });
+      dialogRef = this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService, editId: this.caliberId } });
     } else {
-      dialogRef = this.dialog.open(DictionaryFormDialogComponent, { data: { service: this.caliberService } });
+      dialogRef = this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -106,12 +146,12 @@ export class GunFormDialogComponent implements OnInit {
     )
   }
 
-  openAddEditTypeDialog(prefs: { edit: boolean }): void {
+  openTypeFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(DictionaryFormDialogComponent, { data: { service: this.caliberService, editId: this.typeId } });
+      dialogRef = this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService, editId: this.typeId } });
     } else {
-      dialogRef = this.dialog.open(DictionaryFormDialogComponent, { data: { service: this.caliberService } });
+      dialogRef = this._dialog.open(DictionaryFormDialogComponent, { data: { service: this._caliberService } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -123,7 +163,7 @@ export class GunFormDialogComponent implements OnInit {
   }
 
   openDeleteModelDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.modelService, id: this.modelId } });
+    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._modelService, id: this.modelId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -134,7 +174,7 @@ export class GunFormDialogComponent implements OnInit {
   }
 
   openDeleteCaliberDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.caliberService, id: this.caliberId } });
+    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._caliberService, id: this.caliberId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -145,7 +185,7 @@ export class GunFormDialogComponent implements OnInit {
   }
 
   openDeleteTypeDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, { data: { service: this.typeService, id: this.typeId } });
+    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._typeService, id: this.typeId } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -155,23 +195,48 @@ export class GunFormDialogComponent implements OnInit {
     )
   }
 
-  doAddOrEdit(): void {
+  processForm(): void {
     if (this.modelId && this.caliberId && this.typeId && this.productionYear) {
+      let serviceResult;
       if (this.editId) {
-        console.log(this.editId);
-        this.gunService.update({ id: this.editId, model: { id: this.modelId }, caliber: { id: this.caliberId }, type: { id: this.typeId }, productionYear: this.productionYear } as Gun).subscribe(
-          () => {
-            this.dialogRef.close({ updateList: true })
-          }
-        )
+        serviceResult = this._doEdit();
       } else {
-        this.gunService.add({ modelId: this.modelId, caliberId: this.caliberId, typeId: this.typeId, productionYear: this.productionYear }).subscribe(
-          () => {
-            this.dialogRef.close({ updateList: true });
-          }
-        )
+        serviceResult = this._doAdd();
       }
+      serviceResult.subscribe(
+        () => {
+          this._dialogRef.close({updateList: true});
+        }
+      )
     }
   }
 
+  private _doEdit(): Observable<Gun> {
+    return this._gunService.update({
+      id: this.editId?.valueOf(),
+      model: {
+        id: this.modelId
+      },
+      caliber: {
+        id: this.caliberId
+      },
+      type: {
+        id: this.typeId
+      },
+      productionYear: this.productionYear
+    } as Gun)
+  }
+
+  private _doAdd(): Observable<Gun> {
+    return this._gunService.add({ 
+      modelId: this.modelId!, 
+      caliberId: this.caliberId!, 
+      typeId: this.typeId!, 
+      productionYear: this.productionYear! 
+    })
+  }
+
+  closeDialog(updateList: boolean): void {
+    this._dialogRef.close({updateList: updateList});
+  }
 }

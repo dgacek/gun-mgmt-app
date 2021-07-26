@@ -11,22 +11,35 @@ import { GunService } from 'src/app/services/rest/gun.service';
   styleUrls: ['./gunlist-page.component.scss']
 })
 export class GunlistPageComponent {
-  selectedItem?: Gun = undefined;
-  viewUpdater: boolean = false;
+  private _selectedItem?: Gun = undefined;
+  public get selectedItem(): Gun | undefined {
+    return this._selectedItem;
+  }
+  public set selectedItem(value: Gun | undefined) {
+    this._selectedItem = value;
+  }
 
-  constructor( private gunService: GunService,
-    public dialog: MatDialog) { }
+  private _viewUpdater: boolean = false;
+  public get viewUpdater(): boolean {
+    return this._viewUpdater;
+  }
+  public set viewUpdater(value: boolean) {
+    this._viewUpdater = value;
+  }
+
+  constructor(private _gunService: GunService,
+    private _dialog: MatDialog) { }
 
   setSelectedItem(item: Gun) {
     this.selectedItem = item;
   }
 
-  openAddEditGunDialog(prefs: {edit: boolean}): void {
+  openGunFormDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(GunFormDialogComponent, { data: this.selectedItem ? this.selectedItem.id : null });
+      dialogRef = this._dialog.open(GunFormDialogComponent, { data: this.selectedItem?.id });
     } else {
-      dialogRef = this.dialog.open(GunFormDialogComponent);
+      dialogRef = this._dialog.open(GunFormDialogComponent);
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -38,7 +51,7 @@ export class GunlistPageComponent {
   }
 
   openDeleteGunDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {service: this.gunService, id: this.selectedItem ? this.selectedItem.id : null}});
+    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, { data: { service: this._gunService, id: this.selectedItem?.id } });
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {

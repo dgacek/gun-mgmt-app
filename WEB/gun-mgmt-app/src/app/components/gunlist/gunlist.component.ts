@@ -10,12 +10,27 @@ import { GunService } from 'src/app/services/rest/gun.service';
   styleUrls: ['./gunlist.component.scss']
 })
 export class GunlistComponent implements OnInit {
-  displayedColumns: string[] = ["id", "model", "caliber", "production-year", "type"];
-  dataSource: MatTableDataSource<Gun> = new MatTableDataSource;
+  readonly displayedColumns: string[] = ["id", "model", "caliber", "production-year", "type"];
+
+  private _dataSource: MatTableDataSource<Gun> = new MatTableDataSource;
+  public get dataSource(): MatTableDataSource<Gun> {
+    return this._dataSource;
+  }
+  public set dataSource(value: MatTableDataSource<Gun>) {
+    this._dataSource = value;
+  }
+
+  private _selectedItem?: Gun | undefined = undefined;
+  public get selectedItem(): Gun | undefined {
+    return this._selectedItem;
+  }
+  public set selectedItem(value: Gun | undefined) {
+    this._selectedItem = value;
+  }
+
   @Output() selectionChanged = new EventEmitter<Gun>();
-  selectedItem?: Gun = undefined;
   @Input() viewUpdater: boolean = false;
-  @ViewChild(MatSort, {static: false}) sort: MatSort = new MatSort;
+  @ViewChild(MatSort, {static: false}) private _sort: MatSort = new MatSort;
 
   constructor(private gunService: GunService) { }
 
@@ -28,7 +43,6 @@ export class GunlistComponent implements OnInit {
     if (updateView) {
       this.updateList();
     }
-
   }
 
   updateList(): void {
@@ -45,7 +59,7 @@ export class GunlistComponent implements OnInit {
             default: return "";
           }
         };
-        this.dataSource.sort = this.sort;
+        this.dataSource.sort = this._sort;
       }
     )
   }

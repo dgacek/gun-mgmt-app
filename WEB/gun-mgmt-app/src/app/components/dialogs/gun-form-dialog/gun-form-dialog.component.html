@@ -9,10 +9,10 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-icon-button (click)="openAddEditModelDialog({edit: false})">
+  <button mat-icon-button (click)="openModelFormDialog({edit: false})">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-icon-button *ngIf="modelId" (click)="openAddEditModelDialog({edit: true})">
+  <button mat-icon-button *ngIf="modelId" (click)="openModelFormDialog({edit: true})">
     <mat-icon>create</mat-icon>
   </button>
   <button mat-icon-button *ngIf="modelId" (click)="openDeleteModelDialog()">
@@ -27,10 +27,10 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-icon-button (click)="openAddEditCaliberDialog({edit: false})">
+  <button mat-icon-button (click)="openCaliberFormDialog({edit: false})">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-icon-button *ngIf="caliberId" (click)="openAddEditCaliberDialog({edit: true})">
+  <button mat-icon-button *ngIf="caliberId" (click)="openCaliberFormDialog({edit: true})">
     <mat-icon>create</mat-icon>
   </button>
   <button mat-icon-button *ngIf="caliberId" (click)="openDeleteCaliberDialog()">
@@ -45,10 +45,10 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-icon-button (click)="openAddEditTypeDialog({edit: false})">
+  <button mat-icon-button (click)="openTypeFormDialog({edit: false})">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-icon-button *ngIf="typeId" (click)="openAddEditTypeDialog({edit: true})">
+  <button mat-icon-button *ngIf="typeId" (click)="openTypeFormDialog({edit: true})">
     <mat-icon>create</mat-icon>
   </button>
   <button mat-icon-button *ngIf="typeId" (click)="openDeleteTypeDialog()">
@@ -62,6 +62,6 @@
 </div>
 <div mat-dialog-actions class="center">
   <button mat-button [disabled]="!modelId || !caliberId || !typeId || !productionYear"
-    (click)="doAddOrEdit()">Confirm</button>
-  <button mat-button (click)="dialogRef.close({updateList: false})">Cancel</button>
+    (click)="processForm()">Confirm</button>
+  <button mat-button (click)="closeDialog(false)">Cancel</button>
 </div>

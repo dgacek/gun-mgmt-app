@@ -6,6 +6,7 @@ import { ManufacturerService } from 'src/app/services/rest/manufacturer.service'
 import { ModelService } from 'src/app/services/rest/model.service';
 import { DictionaryFormDialogComponent } from '../dictionary-form-dialog/dictionary-form-dialog.component';
 import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-generic-dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-model-form-dialog',
@@ -13,21 +14,38 @@ import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-ge
   styleUrls: ['./model-form-dialog.component.scss']
 })
 export class ModelFormDialogComponent implements OnInit {
-  manufacturers?: DictionaryData[] = undefined;
-  manufacturerId?: number = undefined;
-  name?: string = undefined;
+  private _manufacturers!: DictionaryData[];
+  public get manufacturers(): DictionaryData[] {
+    return this._manufacturers;
+  }
 
-  constructor(private modelService: ModelService,
-    private manufacturerService: ManufacturerService,
-    public dialogRef: MatDialogRef<ModelFormDialogComponent>,
-    public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public editId?: number,
+  private _manufacturerId?: number = undefined;
+  public get manufacturerId(): number | undefined {
+    return this._manufacturerId;
+  }
+  public set manufacturerId(value: number | undefined) {
+    this._manufacturerId = value;
+  }
+
+  private _name?: string = undefined;
+  public get name(): string | undefined {
+    return this._name;
+  }
+  public set name(value: string | undefined) {
+    this._name = value;
+  }
+
+  constructor(private _modelService: ModelService,
+    private _manufacturerService: ManufacturerService,
+    private _dialogRef: MatDialogRef<ModelFormDialogComponent>,
+    private _dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) readonly editId?: number,
   ) { }
 
   ngOnInit(): void {
     this.updateManufacturerList();
     if (this.editId) {
-      this.modelService.getById(this.editId).subscribe(
+      this._modelService.getById(this.editId).subscribe(
         (response: Model) => {
           this.manufacturerId = response.manufacturer.id;
           this.name = response.name;
@@ -37,19 +55,19 @@ export class ModelFormDialogComponent implements OnInit {
   }
 
   updateManufacturerList(): void {
-    this.manufacturerService.getAll().subscribe(
+    this._manufacturerService.getAll().subscribe(
       (response: DictionaryData[]) => {
-        this.manufacturers = response;
+        this._manufacturers = response;
       }
     )
   }
 
-  openAddEditManufacturerDialog(prefs: {edit: boolean}): void {
+  openManufacturerFormDialog(prefs: {edit: boolean}): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(DictionaryFormDialogComponent, {data: {service: this.manufacturerService, editId: this.manufacturerId}});
+      dialogRef = this._dialog.open(DictionaryFormDialogComponent, {data: {service: this._manufacturerService, editId: this.manufacturerId}});
     } else {
-      dialogRef = this.dialog.open(DictionaryFormDialogComponent, {data: {service: this.manufacturerService}});
+      dialogRef = this._dialog.open(DictionaryFormDialogComponent, {data: {service: this._manufacturerService}});
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -61,7 +79,7 @@ export class ModelFormDialogComponent implements OnInit {
   }
 
   openDeleteManufacturerDialog(): void {
-    const dialogRef = this.dialog.open(DeleteGenericDialogComponent, {data: {service: this.manufacturerService, id: this.manufacturerId}});
+    const dialogRef = this._dialog.open(DeleteGenericDialogComponent, {data: {service: this._manufacturerService, id: this.manufacturerId}});
     dialogRef.afterClosed().subscribe(
       (response) => {
         if (response && response.updateList) {
@@ -71,22 +89,40 @@ export class ModelFormDialogComponent implements OnInit {
     )
   }
 
-  doAddOrEdit(): void {
+  processForm(): void {
     if (this.manufacturerId && this.name) {
+      let serviceResult;
       if (this.editId) {
-        this.modelService.update({ id: this.editId, manufacturer: { id: this.manufacturerId }, name: this.name } as Model).subscribe(
-          () => {
-            this.dialogRef.close({ updateList: true });
-          }
-        )
+        serviceResult = this._doEdit();
       } else {
-        this.modelService.add({ manufacturerId: this.manufacturerId, name: this.name }).subscribe(
-          () => {
-            this.dialogRef.close({ updateList: true });
-          }
-        )
+        serviceResult = this._doAdd();
       }
+      serviceResult.subscribe(
+        () => {
+          this._dialogRef.close({updateList: true});
+        }
+      )
     }
   }
 
+  private _doEdit(): Observable<Model> {
+    return this._modelService.update({ 
+      id: this.editId, 
+      manufacturer: { 
+        id: this.manufacturerId 
+      }, 
+      name: this.name 
+    } as Model);
+  }
+
+  private _doAdd(): Observable<Model> {
+    return  this._modelService.add({ 
+      manufacturerId: this.manufacturerId!, 
+      name: this.name! 
+    });
+  }
+
+  closeDialog(updateList: boolean): void {
+    this._dialogRef.close({updateList: updateList});
+  }
 }
