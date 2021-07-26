@@ -3,10 +3,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { DictionaryData } from 'src/app/types/DictionaryData';
 import { Gun } from 'src/app/types/Gun';
 import { Model } from 'src/app/types/Model';
-import { CaliberService } from 'src/app/services/caliber.service';
-import { GunService } from 'src/app/services/gun.service';
-import { ModelService } from 'src/app/services/model.service';
-import { TypeService } from 'src/app/services/type.service';
+import { CaliberService } from 'src/app/services/rest/caliber.service';
+import { GunService } from 'src/app/services/rest/gun.service';
+import { ModelService } from 'src/app/services/rest/model.service';
+import { TypeService } from 'src/app/services/rest/type.service';
 import { AddEditDictionaryDialogComponent } from '../add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
 import { AddEditModelDialogComponent } from '../add-edit-model-dialog/add-edit-model-dialog.component';
 import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-generic-dialog.component';

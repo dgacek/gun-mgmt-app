@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddEditGunDialogComponent } from 'src/app/components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
 import { DeleteGenericDialogComponent } from 'src/app/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
 import { Gun } from 'src/app/types/Gun';
-import { GunService } from 'src/app/services/gun.service';
+import { GunService } from 'src/app/services/rest/gun.service';
 
 @Component({
   selector: 'app-gunlist-page',
