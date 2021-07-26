@@ -4,15 +4,15 @@ import { BasicCRUDService } from 'src/app/types/BasicCRUDService';
 import { DictionaryData } from 'src/app/types/DictionaryData';
 
 @Component({
-  selector: 'app-add-edit-dictionary-dialog',
-  templateUrl: './add-edit-dictionary-dialog.component.html',
-  styleUrls: ['./add-edit-dictionary-dialog.component.scss']
+  selector: 'app-dictionary-form-dialog',
+  templateUrl: './dictionary-form-dialog.component.html',
+  styleUrls: ['./dictionary-form-dialog.component.scss']
 })
-export class AddEditDictionaryDialogComponent implements OnInit {
+export class DictionaryFormDialogComponent implements OnInit {
   name?: string = undefined;
 
   constructor(
-    public dialogRef: MatDialogRef<AddEditDictionaryDialogComponent>,
+    public dialogRef: MatDialogRef<DictionaryFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public prefs: { service: BasicCRUDService, editId?: number }
   ) { }
 

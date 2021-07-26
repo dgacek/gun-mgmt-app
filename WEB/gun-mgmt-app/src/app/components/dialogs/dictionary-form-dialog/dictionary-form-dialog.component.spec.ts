@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddEditDictionaryDialogComponent } from './add-edit-dictionary-dialog.component';
+import { DictionaryFormDialogComponent } from './dictionary-form-dialog.component';
 
 describe('AddEditDictionaryDialogComponent', () => {
-  let component: AddEditDictionaryDialogComponent;
-  let fixture: ComponentFixture<AddEditDictionaryDialogComponent>;
+  let component: DictionaryFormDialogComponent;
+  let fixture: ComponentFixture<DictionaryFormDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddEditDictionaryDialogComponent ]
+      declarations: [ DictionaryFormDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddEditDictionaryDialogComponent);
+    fixture = TestBed.createComponent(DictionaryFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

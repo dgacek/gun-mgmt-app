@@ -7,16 +7,16 @@ import { CaliberService } from 'src/app/services/rest/caliber.service';
 import { GunService } from 'src/app/services/rest/gun.service';
 import { ModelService } from 'src/app/services/rest/model.service';
 import { TypeService } from 'src/app/services/rest/type.service';
-import { AddEditDictionaryDialogComponent } from '../add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
-import { AddEditModelDialogComponent } from '../add-edit-model-dialog/add-edit-model-dialog.component';
+import { DictionaryFormDialogComponent } from '../dictionary-form-dialog/dictionary-form-dialog.component';
+import { ModelFormDialogComponent } from '../model-form-dialog/model-form-dialog.component';
 import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-generic-dialog.component';
 
 @Component({
-  selector: 'app-add-edit-gun-dialog',
-  templateUrl: './add-edit-gun-dialog.component.html',
-  styleUrls: ['./add-edit-gun-dialog.component.scss']
+  selector: 'app-gun-form-dialog',
+  templateUrl: './gun-form-dialog.component.html',
+  styleUrls: ['./gun-form-dialog.component.scss']
 })
-export class AddEditGunDialogComponent implements OnInit {
+export class GunFormDialogComponent implements OnInit {
   models?: Model[] = undefined;
   calibers?: DictionaryData[] = undefined;
   types?: DictionaryData[] = undefined;
@@ -29,7 +29,7 @@ export class AddEditGunDialogComponent implements OnInit {
     private caliberService: CaliberService,
     private typeService: TypeService,
     private gunService: GunService,
-    public dialogRef: MatDialogRef<AddEditGunDialogComponent>,
+    public dialogRef: MatDialogRef<GunFormDialogComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public editId?: number
   ) { }
@@ -77,9 +77,9 @@ export class AddEditGunDialogComponent implements OnInit {
   openAddEditModelDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditModelDialogComponent, { data: this.modelId });
+      dialogRef = this.dialog.open(ModelFormDialogComponent, { data: this.modelId });
     } else {
-      dialogRef = this.dialog.open(AddEditModelDialogComponent);
+      dialogRef = this.dialog.open(ModelFormDialogComponent);
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -93,9 +93,9 @@ export class AddEditGunDialogComponent implements OnInit {
   openAddEditCaliberDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService, editId: this.caliberId } });
+      dialogRef = this.dialog.open(DictionaryFormDialogComponent, { data: { service: this.caliberService, editId: this.caliberId } });
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService } });
+      dialogRef = this.dialog.open(DictionaryFormDialogComponent, { data: { service: this.caliberService } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {
@@ -109,9 +109,9 @@ export class AddEditGunDialogComponent implements OnInit {
   openAddEditTypeDialog(prefs: { edit: boolean }): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService, editId: this.typeId } });
+      dialogRef = this.dialog.open(DictionaryFormDialogComponent, { data: { service: this.caliberService, editId: this.typeId } });
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, { data: { service: this.caliberService } });
+      dialogRef = this.dialog.open(DictionaryFormDialogComponent, { data: { service: this.caliberService } });
     }
     dialogRef.afterClosed().subscribe(
       (response) => {

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddEditGunDialogComponent } from './add-edit-gun-dialog.component';
+import { GunFormDialogComponent } from './gun-form-dialog.component';
 
 describe('AddGunDialogComponent', () => {
-  let component: AddEditGunDialogComponent;
-  let fixture: ComponentFixture<AddEditGunDialogComponent>;
+  let component: GunFormDialogComponent;
+  let fixture: ComponentFixture<GunFormDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddEditGunDialogComponent ]
+      declarations: [ GunFormDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddEditGunDialogComponent);
+    fixture = TestBed.createComponent(GunFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

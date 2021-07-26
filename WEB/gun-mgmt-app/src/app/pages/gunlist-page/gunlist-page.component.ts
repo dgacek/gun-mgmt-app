@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddEditGunDialogComponent } from 'src/app/components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
+import { GunFormDialogComponent } from 'src/app/components/dialogs/gun-form-dialog/gun-form-dialog.component';
 import { DeleteGenericDialogComponent } from 'src/app/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
 import { Gun } from 'src/app/types/Gun';
 import { GunService } from 'src/app/services/rest/gun.service';
@@ -24,9 +24,9 @@ export class GunlistPageComponent {
   openAddEditGunDialog(prefs: {edit: boolean}): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditGunDialogComponent, { data: this.selectedItem ? this.selectedItem.id : null });
+      dialogRef = this.dialog.open(GunFormDialogComponent, { data: this.selectedItem ? this.selectedItem.id : null });
     } else {
-      dialogRef = this.dialog.open(AddEditGunDialogComponent);
+      dialogRef = this.dialog.open(GunFormDialogComponent);
     }
     dialogRef.afterClosed().subscribe(
       (response) => {

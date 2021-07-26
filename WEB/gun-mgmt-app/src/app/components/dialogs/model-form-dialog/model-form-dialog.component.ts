@@ -4,22 +4,22 @@ import { DictionaryData } from 'src/app/types/DictionaryData';
 import { Model } from 'src/app/types/Model';
 import { ManufacturerService } from 'src/app/services/rest/manufacturer.service';
 import { ModelService } from 'src/app/services/rest/model.service';
-import { AddEditDictionaryDialogComponent } from '../add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
+import { DictionaryFormDialogComponent } from '../dictionary-form-dialog/dictionary-form-dialog.component';
 import { DeleteGenericDialogComponent } from '../delete-generic-dialog/delete-generic-dialog.component';
 
 @Component({
-  selector: 'app-add-edit-model-dialog',
-  templateUrl: './add-edit-model-dialog.component.html',
-  styleUrls: ['./add-edit-model-dialog.component.scss']
+  selector: 'app-model-form-dialog',
+  templateUrl: './model-form-dialog.component.html',
+  styleUrls: ['./model-form-dialog.component.scss']
 })
-export class AddEditModelDialogComponent implements OnInit {
+export class ModelFormDialogComponent implements OnInit {
   manufacturers?: DictionaryData[] = undefined;
   manufacturerId?: number = undefined;
   name?: string = undefined;
 
   constructor(private modelService: ModelService,
     private manufacturerService: ManufacturerService,
-    public dialogRef: MatDialogRef<AddEditModelDialogComponent>,
+    public dialogRef: MatDialogRef<ModelFormDialogComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public editId?: number,
   ) { }
@@ -47,9 +47,9 @@ export class AddEditModelDialogComponent implements OnInit {
   openAddEditManufacturerDialog(prefs: {edit: boolean}): void {
     let dialogRef;
     if (prefs.edit) {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {service: this.manufacturerService, editId: this.manufacturerId}});
+      dialogRef = this.dialog.open(DictionaryFormDialogComponent, {data: {service: this.manufacturerService, editId: this.manufacturerId}});
     } else {
-      dialogRef = this.dialog.open(AddEditDictionaryDialogComponent, {data: {service: this.manufacturerService}});
+      dialogRef = this.dialog.open(DictionaryFormDialogComponent, {data: {service: this.manufacturerService}});
     }
     dialogRef.afterClosed().subscribe(
       (response) => {

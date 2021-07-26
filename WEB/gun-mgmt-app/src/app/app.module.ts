@@ -22,9 +22,9 @@ import { GunlistPageComponent } from './pages/gunlist-page/gunlist-page.componen
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { GunlistComponent } from './components/gunlist/gunlist.component';
-import { AddEditGunDialogComponent } from './components/dialogs/add-edit-gun-dialog/add-edit-gun-dialog.component';
-import { AddEditModelDialogComponent } from './components/dialogs/add-edit-model-dialog/add-edit-model-dialog.component';
-import { AddEditDictionaryDialogComponent } from './components/dialogs/add-edit-dictionary-dialog/add-edit-dictionary-dialog.component';
+import { GunFormDialogComponent } from './components/dialogs/gun-form-dialog/gun-form-dialog.component';
+import { ModelFormDialogComponent } from './components/dialogs/model-form-dialog/model-form-dialog.component';
+import { DictionaryFormDialogComponent } from './components/dialogs/dictionary-form-dialog/dictionary-form-dialog.component';
 import { DeleteGenericDialogComponent } from './components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
 import { MaterialModule } from './modules/material/material.module';
 
@@ -36,9 +36,9 @@ import { MaterialModule } from './modules/material/material.module';
     LoginPageComponent,
     NavbarComponent,
     GunlistComponent,
-    AddEditGunDialogComponent,
-    AddEditModelDialogComponent,
-    AddEditDictionaryDialogComponent,
+    GunFormDialogComponent,
+    ModelFormDialogComponent,
+    DictionaryFormDialogComponent,
     DeleteGenericDialogComponent
   ],
   imports: [
