@@ -8,6 +8,7 @@ import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.model.mapper.UserMapper;
 import com.example.demo.model.repo.RoleRepo;
 import com.example.demo.model.repo.UserRepo;
+import com.example.demo.security.SecurityConfig;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
     private final UserMapper userMapper;
+    private final SecurityConfig securityConfig;
 
     public User addUser(UserInput userInput) {
         RoleEntity roleEntity = roleRepo.findById(userInput.getRoleId())
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService {
                                 .email(userInput.getEmail())
                                 .phone(userInput.getPhone())
                                 .username(userInput.getUsername())
-                                .password(userInput.getPassword())
+                                .password(securityConfig.passwordEncoder().encode(userInput.getPassword()))
                                 .build()
                         )
                 );
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
         userEntity.setRoleEntity(roleEntity);
         userEntity.setUsername(userInput.getUsername());
         userEntity.setEmail(userInput.getEmail());
-        userEntity.setPassword(userInput.getPassword());
+        userEntity.setPassword(securityConfig.passwordEncoder().encode(userInput.getPassword()));
         userEntity.setPhone(userInput.getPhone());
         return userMapper.toUser(userEntity);
     }
