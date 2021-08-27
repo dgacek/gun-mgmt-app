@@ -20,12 +20,11 @@ import java.util.List;
 public class ModelServiceImpl implements ModelService {
     private final ModelRepo modelRepo;
     private final DictionaryRepo dictionaryRepo;
-    private final ModelMapper2 modelMapper2;
 
     public Model addModel(ModelInput modelInput) {
         var manufacturerDictionary = (ManufacturerDictionary) dictionaryRepo.findById(modelInput.getManufacturerId())
                 .orElseThrow(() -> new IdNotFoundException("Manufacture of id:"+modelInput.getManufacturerId()+" could not be found in the database"));
-        return modelMapper2
+        return ModelMapper2.INSTANCE
                 .toModel(modelRepo
                         .save(ModelEntity
                                 .builder()
@@ -37,7 +36,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     public List<Model> findAllModels() {
-        return modelMapper2.toModelList(modelRepo.findAll());
+        return ModelMapper2.INSTANCE.toModelList(modelRepo.findAll());
     }
 
     @Transactional
@@ -48,11 +47,11 @@ public class ModelServiceImpl implements ModelService {
                 .orElseThrow(() -> new IdNotFoundException("Manufacturer of id:"+model.getManufacturer().getId()+" could not be found in the database"));
         modelEntity.setManufacturer(manufacturerDictionary);
         modelEntity.setName(model.getName());
-        return modelMapper2.toModel(modelEntity);
+        return ModelMapper2.INSTANCE.toModel(modelEntity);
     }
 
     public Model findModelById(Long id) {
-        return modelMapper2.toModel(modelRepo.findById(id)
+        return ModelMapper2.INSTANCE.toModel(modelRepo.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("Model of id:"+id+" could not be found in the database")));
     }
 

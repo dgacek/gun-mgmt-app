@@ -18,10 +18,9 @@ import java.util.NoSuchElementException;
 @AllArgsConstructor
 public class DictionaryServiceImpl implements DictionaryService {
     private final DictionaryRepo dictionaryRepo;
-    private final DictionaryDataMapper dictionaryDataMapper;
 
     public DictionaryData addDictionary(Class<? extends DictionaryEntity> type, DictionaryDataInput dictionaryDataInput) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return dictionaryDataMapper
+        return DictionaryDataMapper.INSTANCE
                 .toDictionaryData(dictionaryRepo
                         .save(type
                                 .getDeclaredConstructor(String.class)
@@ -37,11 +36,11 @@ public class DictionaryServiceImpl implements DictionaryService {
         DictionaryEntity dictionaryEntity = dictionaryRepo.findByTypeAndId(type, dictionaryData.getId())
                 .orElseThrow(() -> new NoSuchElementException(type + "of id:"+ dictionaryData.getId() + "could not be found in the database"));
         dictionaryEntity.setName(dictionaryData.getName());
-        return dictionaryDataMapper.toDictionaryData(dictionaryEntity);
+        return DictionaryDataMapper.INSTANCE.toDictionaryData(dictionaryEntity);
     }
 
     public DictionaryData findDictionaryById(String type, Long id) {
-        return dictionaryDataMapper.toDictionaryData(dictionaryRepo.findByTypeAndId(type, id)
+        return DictionaryDataMapper.INSTANCE.toDictionaryData(dictionaryRepo.findByTypeAndId(type, id)
                 .orElseThrow(() -> new NoSuchElementException(type + "of id:"+ id + "could not be found in the database")));
     }
 

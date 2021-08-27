@@ -12,7 +12,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/guns")
+@RequestMapping("/api/guns")
 public class GunController {
     private final GunService gunService;
 

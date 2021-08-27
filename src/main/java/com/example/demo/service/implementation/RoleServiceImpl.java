@@ -4,34 +4,37 @@ import com.example.demo.model.dto.Role;
 import com.example.demo.model.dto.RoleInput;
 import com.example.demo.model.entity.RoleEntity;
 import com.example.demo.exception.IdNotFoundException;
+import com.example.demo.model.mapper.PermissionMapper;
 import com.example.demo.model.mapper.RoleMapper;
 import com.example.demo.model.repo.RoleRepo;
+import com.example.demo.security.Permission;
 import com.example.demo.service.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class RoleServiceImpl implements RoleService {
     private final RoleRepo roleRepo;
-    private final RoleMapper roleMapper;
 
     public Role addRole(RoleInput roleInput) {
-        return roleMapper
+        return RoleMapper.INSTANCE
                 .toRole(roleRepo
                         .save(RoleEntity
                                 .builder()
                                 .name(roleInput.getName())
+                                .permissions(PermissionMapper.INSTANCE.toPermissionList(roleInput.getPermissions()))
                                 .build()
                         )
                 );
     }
 
     public List<Role> findAllRoles() {
-        return roleMapper.toRoleList(roleRepo.findAll());
+        return RoleMapper.INSTANCE.toRoleList(roleRepo.findAll());
     }
 
     @Transactional
@@ -39,11 +42,12 @@ public class RoleServiceImpl implements RoleService {
         RoleEntity roleEntity = roleRepo.findById(role.getId())
                 .orElseThrow(() -> new IdNotFoundException(("Role of id:"+role.getId()+" could not be found in the database")));
         roleEntity.setName(role.getName());
-        return roleMapper.toRole(roleEntity);
+        roleEntity.setPermissions(PermissionMapper.INSTANCE.toPermissionList(role.getPermissions()));
+        return RoleMapper.INSTANCE.toRole(roleEntity);
     }
 
     public Role findRoleById(Long id) {
-        return roleMapper.toRole(roleRepo.findById(id)
+        return RoleMapper.INSTANCE.toRole(roleRepo.findById(id)
                 .orElseThrow(() -> new IdNotFoundException(("Role of id:"+id+" could not be found in the database"))));
     }
 

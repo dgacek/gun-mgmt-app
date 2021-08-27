@@ -1,10 +1,11 @@
 package com.example.demo.model.entity;
 
+import com.example.demo.security.Permission;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name="roles")
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RoleEntity implements Serializable, GrantedAuthority {
+public class RoleEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq_gen")
     @SequenceGenerator(name = "role_seq_gen", sequenceName = "role_id_seq", allocationSize = 1)
@@ -21,8 +22,8 @@ public class RoleEntity implements Serializable, GrantedAuthority {
     private Long id;
     private String name;
 
-    @Override
-    public String getAuthority() {
-        return name;
-    }
+    @ElementCollection(targetClass = Permission.class)
+    @Enumerated(EnumType.STRING)
+    private Collection<Permission> permissions;
+
 }

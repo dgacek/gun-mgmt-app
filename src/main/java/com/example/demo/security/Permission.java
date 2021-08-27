@@ -1,0 +1,28 @@
+package com.example.demo.security;
+
+public enum Permission {
+    DICTIONARY_CREATE,
+    DICTIONARY_READ,
+    DICTIONARY_UPDATE,
+    DICTIONARY_DELETE,
+
+    MODEL_CREATE,
+    MODEL_READ,
+    MODEL_UPDATE,
+    MODEL_DELETE,
+
+    GUN_CREATE,
+    GUN_READ,
+    GUN_UPDATE,
+    GUN_DELETE,
+
+    ROLE_CREATE,
+    ROLE_READ,
+    ROLE_UPDATE,
+    ROLE_DELETE,
+
+    USER_CREATE,
+    USER_READ,
+    USER_UPDATE,
+    USER_DELETE
+}

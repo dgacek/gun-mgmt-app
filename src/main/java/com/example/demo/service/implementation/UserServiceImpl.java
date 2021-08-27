@@ -8,7 +8,6 @@ import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.model.mapper.UserMapper;
 import com.example.demo.model.repo.RoleRepo;
 import com.example.demo.model.repo.UserRepo;
-import com.example.demo.security.SecurityConfig;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,13 +20,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
-    private final UserMapper userMapper;
-    private final SecurityConfig securityConfig;
 
     public User addUser(UserInput userInput) {
         RoleEntity roleEntity = roleRepo.findById(userInput.getRoleId())
                 .orElseThrow(() -> new IdNotFoundException("Role of id:"+userInput.getRoleId()+" could not be found in the database"));
-        return userMapper
+        return UserMapper.INSTANCE
                 .toUser(userRepo
                         .save(UserEntity
                                 .builder()
@@ -35,14 +32,14 @@ public class UserServiceImpl implements UserService {
                                 .email(userInput.getEmail())
                                 .phone(userInput.getPhone())
                                 .username(userInput.getUsername())
-                                .password(securityConfig.passwordEncoder().encode(userInput.getPassword()))
+                                .password(userInput.getPassword())
                                 .build()
                         )
                 );
     }
 
     public List<User> findAllUsers() {
-        return userMapper.toUserList(userRepo.findAll());
+        return UserMapper.INSTANCE.toUserList(userRepo.findAll());
     }
 
     @Transactional
@@ -56,13 +53,13 @@ public class UserServiceImpl implements UserService {
         userEntity.setRoleEntity(roleEntity);
         userEntity.setUsername(userInput.getUsername());
         userEntity.setEmail(userInput.getEmail());
-        userEntity.setPassword(securityConfig.passwordEncoder().encode(userInput.getPassword()));
+        userEntity.setPassword(userInput.getPassword());
         userEntity.setPhone(userInput.getPhone());
-        return userMapper.toUser(userEntity);
+        return UserMapper.INSTANCE.toUser(userEntity);
     }
 
     public User findUserById(Long id) {
-        return userMapper.toUser(userRepo.findById(id)
+        return UserMapper.INSTANCE.toUser(userRepo.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("User of id:"+id+" could not be found in the database")));
     }
 
