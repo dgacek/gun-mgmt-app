@@ -1,13 +1,13 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.mapper.PermissionMapper;
-import com.example.demo.security.Permission;
+import com.example.demo.model.enums.Permission;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.example.demo.security.Permission.*;
+import static com.example.demo.model.enums.Permission.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PermissionMapperTests {

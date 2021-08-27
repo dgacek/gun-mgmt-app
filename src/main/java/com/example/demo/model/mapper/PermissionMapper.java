@@ -1,6 +1,6 @@
 package com.example.demo.model.mapper;
 
-import com.example.demo.security.Permission;
+import com.example.demo.model.enums.Permission;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ValueMapping;

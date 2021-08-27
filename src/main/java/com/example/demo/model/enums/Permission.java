@@ -1,4 +1,4 @@
-package com.example.demo.security;
+package com.example.demo.model.enums;
 
 public enum Permission {
     DICTIONARY_CREATE,

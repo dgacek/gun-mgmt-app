@@ -1,6 +1,6 @@
 package com.example.demo.model.entity;
 
-import com.example.demo.security.Permission;
+import com.example.demo.model.enums.Permission;
 import lombok.*;
 
 import javax.persistence.*;

@@ -7,13 +7,11 @@ import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.model.mapper.PermissionMapper;
 import com.example.demo.model.mapper.RoleMapper;
 import com.example.demo.model.repo.RoleRepo;
-import com.example.demo.security.Permission;
 import com.example.demo.service.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
