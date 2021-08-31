@@ -1,6 +1,8 @@
 package com.example.demo.model.enums;
 
-public enum Permission {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Permission implements GrantedAuthority {
     DICTIONARY_CREATE,
     DICTIONARY_READ,
     DICTIONARY_UPDATE,
@@ -24,5 +26,10 @@ public enum Permission {
     USER_CREATE,
     USER_READ,
     USER_UPDATE,
-    USER_DELETE
+    USER_DELETE;
+
+    @Override
+    public String getAuthority() {
+        return this.name();
+    }
 }

@@ -10,26 +10,34 @@ import java.util.List;
 import static com.example.demo.model.enums.Permission.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PermissionMapperTests {
+class PermissionMapperTests {
     @Test
-    public void stringToEnumMapping() {
+    void stringToEnumMapping() {
         String permissionString = "USER_CREATE";
         Permission permission = PermissionMapper.INSTANCE.toPermission(permissionString);
-        assertEquals(permission, Permission.USER_CREATE);
+        assertEquals(Permission.USER_CREATE, permission);
     }
 
     @Test
-    public void stringToEnumMappingException() {
+    void stringToEnumMappingException() {
         String permissionString = "error_string";
         Permission permission = PermissionMapper.INSTANCE.toPermission(permissionString);
         assertNull(permission);
     }
 
     @Test
-    public void stringListToEnumListMapping() {
+    void stringListToEnumListMapping() {
         List<String> strings = Arrays.asList("DICTIONARY_CREATE", "DICTIONARY_READ", "DICTIONARY_UPDATE", "DICTIONARY_DELETE");
         List<Permission> permissions = PermissionMapper.INSTANCE.toPermissionList(strings);
         List<Permission> permissionsCorrect = Arrays.asList(DICTIONARY_CREATE, DICTIONARY_READ, DICTIONARY_UPDATE, DICTIONARY_DELETE);
-        assertArrayEquals(permissions.toArray(), permissionsCorrect.toArray());
+        assertArrayEquals(permissionsCorrect.toArray(), permissions.toArray());
+    }
+
+    @Test
+    void enumListToStringListMapping() {
+        List<Permission> permissions = Arrays.asList(DICTIONARY_CREATE, DICTIONARY_READ, DICTIONARY_UPDATE, DICTIONARY_DELETE);
+        List<String> stringsCorrect = Arrays.asList("DICTIONARY_CREATE", "DICTIONARY_READ", "DICTIONARY_UPDATE", "DICTIONARY_DELETE");
+        List<String> strings = PermissionMapper.INSTANCE.toStringList(permissions);
+        assertArrayEquals(stringsCorrect.toArray(), strings.toArray());
     }
 }

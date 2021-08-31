@@ -5,7 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name="roles")
@@ -24,6 +24,6 @@ public class RoleEntity implements Serializable {
 
     @ElementCollection(targetClass = Permission.class)
     @Enumerated(EnumType.STRING)
-    private Collection<Permission> permissions;
+    private List<Permission> permissions;
 
 }

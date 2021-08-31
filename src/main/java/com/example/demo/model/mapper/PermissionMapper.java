@@ -15,4 +15,5 @@ public interface PermissionMapper {
     @ValueMapping(source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL)
     Permission toPermission(String permissionString);
     List<Permission> toPermissionList(List<String> permissionStringList);
+    List<String> toStringList(List<Permission> permissionList);
 }
