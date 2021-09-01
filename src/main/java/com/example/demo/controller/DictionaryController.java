@@ -10,13 +10,14 @@ import com.example.demo.service.DictionaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/dictionary")
+@RequestMapping("/dictionary")
 public class DictionaryController {
     private final DictionaryService dictionaryService;
 
@@ -48,16 +49,19 @@ public class DictionaryController {
     }
 
     @GetMapping("/{type}")
+    @PreAuthorize("hasAuthority('DICTIONARY_READ')")
     public ResponseEntity<List<DictionaryData>> getAllDictionaries(@PathVariable String type) throws ClassNotFoundException {
         return new ResponseEntity<>(dictionaryService.findAllDictionaries(parseType(type)), HttpStatus.OK);
     }
 
     @GetMapping("/{type}/{id}")
+    @PreAuthorize("hasAuthority('DICTIONARY_READ')")
     public ResponseEntity<DictionaryData> getDictionaryById(@PathVariable String type, @PathVariable Long id) throws ClassNotFoundException {
         return new ResponseEntity<>(dictionaryService.findDictionaryById(parseTypeString(type), id), HttpStatus.OK);
     }
 
     @PostMapping("/{type}")
+    @PreAuthorize("hasAuthority('DICTIONARY_CREATE')")
     public ResponseEntity<DictionaryData> addDictionary(@PathVariable String type, @RequestBody DictionaryDataInput dictionaryDataInput) {
         try {
             return new ResponseEntity<>(dictionaryService.addDictionary(parseType(type), dictionaryDataInput), HttpStatus.OK);
@@ -68,11 +72,13 @@ public class DictionaryController {
     }
 
     @PutMapping("/{type}")
+    @PreAuthorize("hasAuthority('DICTIONARY_UPDATE')")
     public ResponseEntity<DictionaryData> updateDictionary(@PathVariable String type, @RequestBody DictionaryData dictionaryData) throws ClassNotFoundException {
         return new ResponseEntity<>(dictionaryService.updateDictionary(parseTypeString(type), dictionaryData), HttpStatus.OK);
     }
 
     @DeleteMapping("/{type}/{id}")
+    @PreAuthorize("hasAuthority('DICTIONARY_DELETE')")
     public void deleteDictionary(@PathVariable String type, @PathVariable Long id) throws ClassNotFoundException {
         dictionaryService.deleteDictionary(parseTypeString(type), id);
     }

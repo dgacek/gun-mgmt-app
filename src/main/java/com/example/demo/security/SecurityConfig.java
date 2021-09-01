@@ -24,8 +24,6 @@ import java.util.Arrays;
 @EnableWebSecurity
 @AllArgsConstructor
 @EnableGlobalMethodSecurity(
-        securedEnabled = true,
-        jsr250Enabled = true,
         prePostEnabled = true
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -51,12 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http = http
                 .exceptionHandling()
                 .authenticationEntryPoint(
-                        (request, response, ex) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage())
+                        (request, response, ex) -> {response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage()); ex.printStackTrace();}
                 )
                 .and();
 
         http.authorizeRequests()
                 .antMatchers("/swagger-ui/*", "/swagger-ui.html", "/webjars/**", "/v2/**", "/swagger-resources/**").permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/api/login")
+@RequestMapping("/login")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -25,11 +27,17 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     @PostMapping
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<AuthResponse> login(@RequestBody @Valid AuthRequest authRequest) {
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-            return new ResponseEntity<>(new AuthResponse(jwtUtils.generateAccessToken((UserEntity) authentication.getPrincipal())), HttpStatus.OK);
+            return new ResponseEntity<>(
+                    AuthResponse.builder()
+                        .token(jwtUtils.generateAccessToken((UserEntity) authentication.getPrincipal()))
+                        .build(),
+                    HttpStatus.OK
+            );
+
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
