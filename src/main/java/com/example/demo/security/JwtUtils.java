@@ -5,12 +5,15 @@ import com.example.demo.model.mapper.PermissionMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service
 public class JwtUtils {
+    private final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
     private static final String JwtSecret = "QLSC6nSI0R7vBmyBsDX0J4XENTlkW4mI96gY7Wj_mAmiJFQIr7klqVHhQJmiQTSb1tHEYz222MzvucimU9tpvA";
 
     public String generateAccessToken(UserEntity user) {
@@ -23,7 +26,9 @@ public class JwtUtils {
     }
 
     public Boolean isTokenValid(String token, UserEntity user) {
-        return getAllClaims(token).getExpiration().after(new Date()) && getAllClaims(token).getSubject().equals(user.getUsername());
+        logger.info("Token non-expired: {}", getAllClaims(token).getExpiration().after(new Date()));
+        logger.info("Username valid: {}", getUsername(token).equals(user.getUsername()));
+        return getAllClaims(token).getExpiration().after(new Date()) && getUsername(token).equals(user.getUsername());
     }
 
     public String getUsername(String token) {

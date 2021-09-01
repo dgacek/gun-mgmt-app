@@ -49,7 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http = http
                 .exceptionHandling()
                 .authenticationEntryPoint(
-                        (request, response, ex) -> {response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage()); ex.printStackTrace();}
+                        (request, response, ex) -> {
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+                            ex.printStackTrace();
+                        }
                 )
                 .and();
 

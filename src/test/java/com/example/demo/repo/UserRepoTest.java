@@ -1,12 +1,15 @@
 package com.example.demo.repo;
 
 import com.example.demo.model.entity.UserEntity;
+import com.example.demo.model.enums.Permission;
 import com.example.demo.model.repo.UserRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.List;
 
 @SpringBootTest
 class UserRepoTest {

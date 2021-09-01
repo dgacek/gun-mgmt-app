@@ -22,7 +22,7 @@ public class RoleEntity implements Serializable {
     private Long id;
     private String name;
 
-    @ElementCollection(targetClass = Permission.class)
+    @ElementCollection(targetClass = Permission.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private List<Permission> permissions;
 

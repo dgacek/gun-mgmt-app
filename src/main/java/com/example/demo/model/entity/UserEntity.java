@@ -22,7 +22,7 @@ public class UserEntity implements Serializable, UserDetails {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private RoleEntity roleEntity;
 
