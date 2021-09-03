@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <div>Gun management</div>
   <div class="spacer"></div>
-  <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
   <button mat-button routerLink="/guns" routerLinkActive="active">Guns</button>
   <button mat-button routerLink="/users" routerLinkActive="active">Users</button>
+  <div *ngIf="isAuthenticated(); else elseBlock"><button mat-button (click)="logout()">Logout</button></div>
+  <ng-template #elseBlock><button mat-button routerLink="/login" routerLinkActive="active">Login</button></ng-template>
 </mat-toolbar>

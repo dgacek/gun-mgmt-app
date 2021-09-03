@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { UserlistPageComponent } from './views/pages/userlist-page/userlist-page.component';
@@ -17,6 +17,9 @@ import { ModelFormDialogComponent } from './views/components/dialogs/model-form-
 import { DictionaryFormDialogComponent } from './views/components/dialogs/dictionary-form-dialog/dictionary-form-dialog.component';
 import { DeleteGenericDialogComponent } from './views/components/dialogs/delete-generic-dialog/delete-generic-dialog.component';
 import { MaterialModule } from './shared/modules/material/material.module';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { JwtModule } from '@auth0/angular-jwt';
+import { LoginDialogComponent } from './views/components/dialogs/login-dialog/login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { MaterialModule } from './shared/modules/material/material.module';
     GunFormDialogComponent,
     ModelFormDialogComponent,
     DictionaryFormDialogComponent,
-    DeleteGenericDialogComponent
+    DeleteGenericDialogComponent,
+    LoginDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +41,20 @@ import { MaterialModule } from './shared/modules/material/material.module';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {return localStorage.getItem("token")}
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
