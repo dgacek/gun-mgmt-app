@@ -3,6 +3,7 @@ package com.example.demo.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Builder
 @Table(name = "guns")
-public class GunEntity {
+public class GunEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gun_seq_gen")
     @SequenceGenerator(name = "gun_seq_gen", sequenceName = "gun_id_seq", allocationSize = 1)
