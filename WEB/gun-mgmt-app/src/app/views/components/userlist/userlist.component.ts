@@ -19,12 +19,21 @@ export class UserlistComponent implements OnInit {
     this._dataSource = value;
   }
 
+  private _selectedIndex: number = -1;
+  public get selectedIndex(): number {
+    return this._selectedIndex;
+  }
+  public set selectedIndex(value: number) {
+    this._selectedIndex = value;
+  }
+
   @ViewChild(MatSort, {static: false}) private _sort: MatSort = new MatSort;
   @Input() viewUpdater: boolean = false;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.updateList();
   }
 
   updateList(): void {
