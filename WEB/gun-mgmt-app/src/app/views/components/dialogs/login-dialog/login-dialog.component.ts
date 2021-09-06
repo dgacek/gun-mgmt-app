@@ -30,6 +30,7 @@ export class LoginDialogComponent {
 
   public processForm(): void {
     if (this._username && this._password) {
+      this.auth.setAuthToken("");
       this.loginService.login({username: this._username, password: this._password}).subscribe(
         (response: AuthResponse) => {
           this.auth.setAuthToken(response.token);

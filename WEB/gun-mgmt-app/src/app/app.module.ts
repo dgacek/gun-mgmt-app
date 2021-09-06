@@ -20,6 +20,7 @@ import { MaterialModule } from './shared/modules/material/material.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoginDialogComponent } from './views/components/dialogs/login-dialog/login-dialog.component';
+import { UserlistComponent } from './views/components/userlist/userlist.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LoginDialogComponent } from './views/components/dialogs/login-dialog/lo
     ModelFormDialogComponent,
     DictionaryFormDialogComponent,
     DeleteGenericDialogComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    UserlistComponent
   ],
   imports: [
     BrowserModule,
